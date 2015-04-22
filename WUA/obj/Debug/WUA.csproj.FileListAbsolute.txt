@@ -1,0 +1,14 @@
+C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Output\bin\Debug\WUA.exe
+C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Output\bin\Debug\WUA.pdb
+C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\WUA\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\WUA\obj\Debug\Interop.WUApiLib.dll
+C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\WUA\obj\Debug\WUA.csproj.ResolveComReference.cache
+C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\WUA\obj\Debug\WUA.exe
+C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\WUA\obj\Debug\WUA.pdb
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Debug\WUA.exe.config
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Debug\WUA.exe
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Debug\WUA.pdb
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\Interop.WUApiLib.dll
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\WUA.csproj.ResolveComReference.cache
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\WUA.exe
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\WUA.pdb

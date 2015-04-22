@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="WUManager">
+</Property><Property Name="Solution File" Value="C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\WUManager.sln">
+</Property><Property Name="Date" Value="quinta-feira, 12 de julho de 2012">
+</Property><Property Name="Time" Value="11:21">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="WUManager.sln" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager.sln">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\WUManager.csproj" Description="Project file successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\WUManager.csproj">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Controls\ProgressBar.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Controls\ProgressBar.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Enums\WUCollums.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Enums\WUCollums.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Enums\WUAOperations.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Enums\WUAOperations.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\FormMain.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\FormMain.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\FormMain.Designer.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\FormMain.Designer.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\FormAddHosts.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\FormAddHosts.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\FormAddHosts.Designer.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\FormAddHosts.Designer.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Program.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Program.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\ProgBar\DataGridViewProgressCell.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\ProgBar\DataGridViewProgressCell.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\ProgBar\DataGridViewProgressColumn.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\ProgBar\DataGridViewProgressColumn.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Properties\Settings.Designer.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Tools\DgvUtils.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Tools\DgvUtils.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Tools\OSManager.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Tools\OSManager.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Tools\Pinger.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Tools\Pinger.cs">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Properties\app.manifest" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Properties\app.manifest">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Properties\Settings.settings" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\psexec.exe" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\psexec.exe">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\Controls\ProgressBar.resx" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\Controls\ProgressBar.resx">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\FormMain.resx" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\FormMain.resx">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\FormAddHosts.resx" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUManager\FormAddHosts.resx">
+</Event><Event ErrorLevel="1" Project="WUManager" Source="WUManager\WUManager.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\WUManager.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="WUManager" Source="WUManager\WUManager.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\WUA.csproj" Description="Project file successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUA\WUA.csproj">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\Arguments.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUA\Arguments.cs">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\Program.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUA\Program.cs">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\WUAProgressManager.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUA\WUAProgressManager.cs">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUA\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\WUAManager.cs" Description="File successfully backed up as C:\Users\fleonardo\Backup_Locaweb\GIT\WUManager\Backup\WUA\WUAManager.cs">
+</Event><Event ErrorLevel="1" Project="WUA" Source="WUA\WUA.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\WUA.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="WUA" Source="WUA\WUA.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="WUManager.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="WUManager.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="WUManager" Source="WUManager\WUManager.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="WUA" Source="WUA\WUA.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
