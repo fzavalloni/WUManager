@@ -533,7 +533,8 @@
                 lock (row)
                 {
                     string host = row.Cells["Host"].Value.ToString();
-                    pinger.BeginStart(host, row);
+
+                    osManager.BeginReboot(row, host);
 
                     lock (threadList)
                     {
@@ -547,7 +548,10 @@
                         }
                     }
 
-                    osManager.BeginReboot(row, host);
+                    if (chkBoxEnablePingAfterBoot.Checked == true)
+                    {
+                        pinger.BeginStart(host, row);
+                    }
                 }
             }
         }
@@ -683,5 +687,6 @@
         {
             this.OpenFormCredential();
         }
+     
     }
 }

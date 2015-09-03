@@ -75,6 +75,8 @@
             this.removeItensToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.grpBoxOptions = new System.Windows.Forms.GroupBox();
+            this.chkBoxEnablePingAfterBoot = new System.Windows.Forms.CheckBox();
             this.cmdAddHosts = new System.Windows.Forms.Button();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,12 +95,14 @@
             this.dataGridViewProgressColumn4 = new WUManager.ProgBar.DataGridViewProgressColumn();
             this.dataGridViewProgressColumn5 = new WUManager.ProgBar.DataGridViewProgressColumn();
             this.dataGridViewProgressColumn6 = new WUManager.ProgBar.DataGridViewProgressColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.grpBoxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -117,6 +121,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.grpBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAddHosts);
             this.splitContainer1.Size = new System.Drawing.Size(993, 337);
             this.splitContainer1.SplitterDistance = 216;
@@ -228,8 +233,7 @@
             this.toolStripSeparator7,
             this.removeItensToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(196, 226);
-           
+            this.contextMenuStrip1.Size = new System.Drawing.Size(196, 204);
             // 
             // startPingToolStripMenuItem
             // 
@@ -331,7 +335,7 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
@@ -351,7 +355,7 @@
             this.toolStripSeparator5,
             this.removeItensToolStripMenuItem1});
             this.actionsToolStripMenuItem1.Name = "actionsToolStripMenuItem1";
-            this.actionsToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.actionsToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.actionsToolStripMenuItem1.Text = "Actions";
             // 
             // startPingToolStripMenuItem1
@@ -433,16 +437,37 @@
             // saveListToolStripMenuItem
             // 
             this.saveListToolStripMenuItem.Name = "saveListToolStripMenuItem";
-            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.saveListToolStripMenuItem.Text = "Save hosts list";
             this.saveListToolStripMenuItem.Click += new System.EventHandler(this.saveListToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            // 
+            // grpBoxOptions
+            // 
+            this.grpBoxOptions.Controls.Add(this.chkBoxEnablePingAfterBoot);
+            this.grpBoxOptions.Dock = System.Windows.Forms.DockStyle.Right;
+            this.grpBoxOptions.Location = new System.Drawing.Point(793, 0);
+            this.grpBoxOptions.Name = "grpBoxOptions";
+            this.grpBoxOptions.Size = new System.Drawing.Size(200, 117);
+            this.grpBoxOptions.TabIndex = 2;
+            this.grpBoxOptions.TabStop = false;
+            this.grpBoxOptions.Text = "Options";
+            // 
+            // chkBoxEnablePingAfterBoot
+            // 
+            this.chkBoxEnablePingAfterBoot.AutoSize = true;
+            this.chkBoxEnablePingAfterBoot.Location = new System.Drawing.Point(6, 19);
+            this.chkBoxEnablePingAfterBoot.Name = "chkBoxEnablePingAfterBoot";
+            this.chkBoxEnablePingAfterBoot.Size = new System.Drawing.Size(139, 17);
+            this.chkBoxEnablePingAfterBoot.TabIndex = 0;
+            this.chkBoxEnablePingAfterBoot.Text = "Enable ping after reboot";
+            this.chkBoxEnablePingAfterBoot.UseVisualStyleBackColor = true;
             // 
             // cmdAddHosts
             // 
@@ -556,16 +581,19 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WUManager - v1.3";
+            this.Text = "WUManager - v1.3.1";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.grpBoxOptions.ResumeLayout(false);
+            this.grpBoxOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -632,6 +660,8 @@
         private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn4;
         private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn5;
         private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn6;
+        private System.Windows.Forms.GroupBox grpBoxOptions;
+        private System.Windows.Forms.CheckBox chkBoxEnablePingAfterBoot;
 
     }
 }

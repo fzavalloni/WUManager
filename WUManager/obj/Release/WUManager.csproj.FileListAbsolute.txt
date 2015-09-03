@@ -32,8 +32,8 @@ C:\Users\administrator.CDI1\Desktop\WUManager\WUManager\obj\Release\WUManager.ex
 C:\Users\administrator.CDI1\Desktop\WUManager\WUManager\obj\Release\WUManager.application
 C:\Users\fleonardo\Documentos\OneDrive\Desenvolvimento - .NET\Backup_Locaweb\GIT\WUManager\WUManager\obj\Release\WUManager.exe
 C:\Users\fleonardo\Documentos\OneDrive\Desenvolvimento - .NET\Backup_Locaweb\GIT\WUManager\WUManager\obj\Release\WUManager.pdb
-D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\psexec.exe
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUManager.exe.config
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\psexec.exe
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUManager.exe.manifest
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUManager.application
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUManager.exe
@@ -48,3 +48,4 @@ D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUManager\obj\Rel
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUManager\obj\Release\WUManager.application
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUManager\obj\Release\WUManager.exe
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUManager\obj\Release\WUManager.pdb
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUManager\obj\Release\WUManager.csprojResolveAssemblyReference.cache

@@ -11,11 +11,11 @@ C:\Users\administrator.CDI1\Desktop\WUManager\WUA\obj\Release\Interop.WUApiLib.d
 C:\Users\administrator.CDI1\Desktop\WUManager\WUA\obj\Release\WUA.csproj.ResolveComReference.cache
 C:\Users\administrator.CDI1\Desktop\WUManager\WUA\obj\Release\WUA.exe
 C:\Users\administrator.CDI1\Desktop\WUManager\WUA\obj\Release\WUA.pdb
-D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUA.exe
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUA.exe.config
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUA.exe
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\Output\bin\Release\WUA.pdb
-D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Release\WUA.csprojResolveAssemblyReference.cache
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Release\Interop.WUApiLib.dll
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Release\WUA.csproj.ResolveComReference.cache
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Release\WUA.exe
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Release\WUA.pdb
+D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Release\WUA.csprojResolveAssemblyReference.cache

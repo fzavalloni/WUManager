@@ -43,7 +43,7 @@
                     SetRowStyleFont(ref row, new Font(defaultCellStyle, FontStyle.Regular));
                     SetRowStyleForeColor(ref row, Color.Black);
 
-                    listRow.Add(row);
+                    listRow.Add(row);                    
 
                     BeginStartDelegate de = new BeginStartDelegate(Start);
                     de.BeginInvoke(host, ref row, null, null);
@@ -113,7 +113,7 @@
                     return;
                 }
 
-                Thread.Sleep(2000);
+                Thread.Sleep(5000);
             }
         }
 
