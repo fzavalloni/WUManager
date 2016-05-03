@@ -15,7 +15,7 @@ have in your network the Wsus Server properly configured.
 
 # Features
 
-![Img1](https://github.com/fzavalloni/WUManager/tree/master/img/wumanager1.png)
+![Img1](https://github.com/fzavalloni/WUManager/blob/master/img/wumanager1.png)
 
 - Ping remote servers
 - Check if any server has pending boot
