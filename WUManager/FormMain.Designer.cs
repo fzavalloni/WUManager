@@ -581,7 +581,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WUManager - v1.3.1";
+            this.Text = "WUManager - v1.3.2";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

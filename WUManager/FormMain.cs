@@ -310,16 +310,15 @@
                     this.Sys_RemoveThreadRow(ref row);
                     return;
                 }
-                StreamReader reader = null;
 
-                reader = operSys.ExecWua("/install /showProgress", hostName);
+
+                StreamReader reader = operSys.ExecWua("/install /showProgress", hostName);
 
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
                     Act_InstallUpdatesInterpretor(ref row, line);
                 }
-
             }
             catch (Exception ex)
             {
@@ -362,16 +361,13 @@
                     return;
                 }
 
-                StreamReader reader = null;
-
-                reader = operSys.ExecWua("/countUpdates", hostName);
+                StreamReader reader = operSys.ExecWua("/countUpdates", hostName);
 
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
                     Act_InstallUpdatesInterpretor(ref row, line);
                 }
-
             }
             catch (Exception ex)
             {
@@ -383,8 +379,6 @@
                 this.Sys_RemoveThreadRow(ref row);
             }
         }
-
-
 
         private void Sys_RemoveThreadRow(ref DataGridViewRow row)
         {
@@ -462,7 +456,6 @@
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
             {
                 de.BeginInvoke(row, null, null);
-
             }
         }
 
@@ -687,6 +680,6 @@
         {
             this.OpenFormCredential();
         }
-     
+
     }
 }

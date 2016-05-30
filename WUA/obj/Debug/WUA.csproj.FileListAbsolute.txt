@@ -12,3 +12,11 @@ D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\Int
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\WUA.csproj.ResolveComReference.cache
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\WUA.exe
 D:\Users\fabrizio.zavalloni\Documentos\Projetos-.NET\WUManager\WUA\obj\Debug\WUA.pdb
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\Output\bin\Debug\WUA.exe.config
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\Output\bin\Debug\WUA.exe
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\Output\bin\Debug\WUA.pdb
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\WUA.csprojResolveAssemblyReference.cache
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\Interop.WUApiLib.dll
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\WUA.csproj.ResolveComReference.cache
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\WUA.exe
+C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\WUA.pdb

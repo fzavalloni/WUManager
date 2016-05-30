@@ -81,10 +81,10 @@ namespace WUManager.ProgBar
             {
                 lbl.ForeColor = cellStyle.SelectionForeColor;
                 lbl.BackColor = cellStyle.SelectionBackColor;
-            }            
+            }
 
             pb.DrawToBitmap(bmp, pb.ClientRectangle);
-            
+
             lbl.Text = String.Format("{0}%", progressVal);
             lbl.Image = bmp;
             lbl.ImageAlign = ContentAlignment.MiddleCenter;

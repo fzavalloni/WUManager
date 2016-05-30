@@ -4,7 +4,7 @@
   <description asmv2:publisher="WUManager" asmv2:product="WUManager" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.5" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.5.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
     <dependentAssembly dependencyType="install" codebase="WUManager.exe.manifest" size="4007">
@@ -14,7 +14,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fCNl0rPBodUhpO7DO6NVFs+L5MPIRjfF7mRcOa1YMnk=</dsig:DigestValue>
+        <dsig:DigestValue>DWrI0woD7i3VpfNSUh7tjjqYoL3/qePPg4IBSmBZUFU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -41,24 +41,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="61440">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="60928">
       <assemblyIdentity name="WUManager" version="1.0.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>a2nBZ+YDOgS4nHVTtbs5xpgyfRkav1JtaLgoCnIGkaA=</dsig:DigestValue>
+        <dsig:DigestValue>pDxutYZp0psGyH3Xk4PJL7dSM5L2QlRPi99iY8lwkxA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="psexec.exe" size="381304">
+  <file name="psexec.exe" size="396480">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>7blu5HQz1p9mtiAC56q/NSVQApotAf4VylBFWN1Cv7w=</dsig:DigestValue>
+      <dsig:DigestValue>OwhTW0rdGU9WYeETHI6Brzc8oyLPZpZ0zxJyCV5cq5U=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WUManager.exe.config" size="144">

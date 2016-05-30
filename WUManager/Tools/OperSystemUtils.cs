@@ -12,8 +12,8 @@ namespace WUManager.Tools
         public bool IsRebootRequired(string host)
         {
             bool isRequired = false;
-            
-            string key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\";            
+
+            string key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\";
             //para Windows 2012 e 2012 R2 a chave de registro é diferente
             string subKey = "RebootRequired";
 
@@ -23,14 +23,14 @@ namespace WUManager.Tools
             {
                 throw new Exception("Local Operation System cannot open Remote Registry. Try to run in another source server.");
             }
-            
-            RegUtils reg = new RegUtils(host);    
-            
+
+            RegUtils reg = new RegUtils(host);
+
             //Checa para Windows
             if (reg.GetKeyValue(key, subKey) != null)
-                isRequired = true;                      
-            
-            return  isRequired;
+                isRequired = true;
+
+            return isRequired;
         }
 
         private bool IsLocalServerWin2008()
@@ -84,36 +84,6 @@ namespace WUManager.Tools
 
                 return process.StandardOutput;
             }
-        }
-        public StreamReader ExecWua(string argumets, string hostName, string username, string password)
-        {
-            using (Process process = new Process())
-            {
-                process.StartInfo.FileName = "psexec.exe";
-                process.StartInfo.Arguments = string.Format(@"-s -accepteula -u {0} -p {1} \\{2} Wua.exe {3}", username, password, hostName, argumets);
-
-                process.StartInfo.ErrorDialog = false;
-                process.StartInfo.CreateNoWindow = true;
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.RedirectStandardError = true;
-                process.StartInfo.RedirectStandardInput = false;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-                process.Start();
-
-                return process.StandardOutput;
-            }
-        }
-
-        private System.Security.SecureString ConvertToSecureString(string password)
-        {
-            var secure = new System.Security.SecureString();
-            foreach (char c in password)
-            {
-                secure.AppendChar(c);
-            }
-            return secure;
         }
     }
 }
