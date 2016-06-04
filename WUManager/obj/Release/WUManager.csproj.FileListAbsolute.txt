@@ -65,3 +65,20 @@ C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUManager\obj\Release\WUManager.ex
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUManager\obj\Release\WUManager.application
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUManager\obj\Release\WUManager.exe
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUManager\obj\Release\WUManager.pdb
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUManager.exe.config
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.exe
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.pdb
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\psexec.exe
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUManager.exe.manifest
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUManager.application
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUManager.exe
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUManager.pdb
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.csprojResolveAssemblyReference.cache
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.Controls.ProgressBar.resources
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.FormCredential.resources
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.FormMain.resources
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.FormAddHosts.resources
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.csproj.GenerateResource.Cache
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.TrustInfo.xml
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.exe.manifest
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Release\WUManager.application

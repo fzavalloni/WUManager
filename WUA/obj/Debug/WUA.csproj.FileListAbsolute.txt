@@ -20,3 +20,11 @@ C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\Interop.WUApiLib.dll
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\WUA.csproj.ResolveComReference.cache
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\WUA.exe
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Debug\WUA.pdb
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Debug\WUA.exe.config
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Debug\WUA.exe
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Debug\WUA.pdb
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Debug\WUA.csprojResolveAssemblyReference.cache
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Debug\Interop.WUApiLib.dll
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Debug\WUA.csproj.ResolveComReference.cache
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Debug\WUA.exe
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Debug\WUA.pdb

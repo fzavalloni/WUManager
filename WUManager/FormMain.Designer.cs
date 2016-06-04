@@ -462,6 +462,8 @@
             // chkBoxEnablePingAfterBoot
             // 
             this.chkBoxEnablePingAfterBoot.AutoSize = true;
+            this.chkBoxEnablePingAfterBoot.Checked = true;
+            this.chkBoxEnablePingAfterBoot.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxEnablePingAfterBoot.Location = new System.Drawing.Point(6, 19);
             this.chkBoxEnablePingAfterBoot.Name = "chkBoxEnablePingAfterBoot";
             this.chkBoxEnablePingAfterBoot.Size = new System.Drawing.Size(139, 17);
@@ -581,7 +583,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WUManager - v1.3.2";
+            this.Text = "WUManager - v1.3.3";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();

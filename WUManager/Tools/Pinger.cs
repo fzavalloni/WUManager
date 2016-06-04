@@ -6,12 +6,12 @@
     using System.Net.NetworkInformation;
     using System.Windows.Forms;
     using System.Threading;
+    using System.Threading.Tasks;
     using System.Net.Sockets;
     using System.Drawing;
 
     internal class Pinger
     {
-        private delegate void BeginStartDelegate(string host, ref DataGridViewRow row);
         private Ping pingSender;
         private PingOptions options;
         private byte[] buffer;
@@ -43,10 +43,9 @@
                     SetRowStyleFont(ref row, new Font(defaultCellStyle, FontStyle.Regular));
                     SetRowStyleForeColor(ref row, Color.Black);
 
-                    listRow.Add(row);                    
-
-                    BeginStartDelegate de = new BeginStartDelegate(Start);
-                    de.BeginInvoke(host, ref row, null, null);
+                    listRow.Add(row);
+                    //Call Asc Method                   
+                    Start(host, row);
                 }
             }
         }
@@ -70,51 +69,62 @@
             }
         }
 
-        private void Start(string host, ref DataGridViewRow row)
+
+        public readonly object SyncRoot = new object();
+
+        private async void Start(string host, DataGridViewRow row)
         {
-            int n = 0;
-            string rep = string.Empty;
-            while (this.IsPinging(ref row))
-            {
-                try
+            await Task.Run(() =>
                 {
-                    PingReply reply = pingSender.Send(host, this.timeout, this.buffer, this.options);
-
-                    if (reply.Status == IPStatus.Success)
+                    int n = 0;
+                    string rep = string.Empty;
+                    while (this.IsPinging(ref row))
                     {
-                        rep = string.Format("{0} {1} Time {2}",
-                            ++n, reply.Address, reply.RoundtripTime);
+                        try
+                        {
+                            //This lock is to avoid the error The is another Async Error in use
+                            lock (SyncRoot)
+                            {
+                                PingReply reply = pingSender.Send(host, this.timeout, this.buffer, this.options);
 
-                        SetRowStyleForeColor(ref row, Color.Black);
+                                if (reply.Status == IPStatus.Success)
+                                {
+                                    rep = string.Format("{0} {1} Time {2}",
+                                        ++n, reply.Address, reply.RoundtripTime);
+
+                                    SetRowStyleForeColor(ref row, Color.Black);
+                                }
+                                else
+                                {
+                                    rep = string.Format("{0} {1}",
+                                        ++n, reply.Status);
+
+                                    SetRowStyleForeColor(ref row, Color.Red);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            rep = string.Format("{0} {1}",
+                                ++n, ex.GetBaseException().Message);
+
+                            SetRowStyleForeColor(ref row, Color.Red);
+                        }
+
+                        try
+                        {
+                            SetRowValue(ref row, rep);
+                        }
+                        catch
+                        {
+                            this.BeginStop(row);
+                            return;
+                        }
+
+                        Thread.Sleep(5000);
+
                     }
-                    else
-                    {
-                        rep = string.Format("{0} {1}",
-                            ++n, reply.Status);
-
-                        SetRowStyleForeColor(ref row, Color.Red);
-                    }                    
-                }
-                catch (Exception ex)
-                {
-                    rep = string.Format("{0} {1}",
-                        ++n, ex.GetBaseException().Message);
-
-                    SetRowStyleForeColor(ref row, Color.Red);
-                }
-
-                try
-                {
-                    SetRowValue(ref row, rep);
-                }
-                catch
-                {
-                    this.BeginStop(row);
-                    return;
-                }
-
-                Thread.Sleep(5000);
-            }
+                });
         }
 
         private void SetRowStyleFont(ref DataGridViewRow row, Font font)

@@ -26,3 +26,11 @@ C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Release\Interop.WUApiLib.d
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Release\WUA.csproj.ResolveComReference.cache
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Release\WUA.exe
 C:\Users\fabrizio.zavalloni\Desktop\WUManager\WUA\obj\Release\WUA.pdb
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUA.exe.config
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUA.exe
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\Output\bin\Release\WUA.pdb
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Release\WUA.csprojResolveAssemblyReference.cache
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Release\Interop.WUApiLib.dll
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Release\WUA.csproj.ResolveComReference.cache
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Release\WUA.exe
+D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUA\obj\Release\WUA.pdb
