@@ -62,3 +62,23 @@ D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUM
 D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Debug\WUManager.TrustInfo.xml
 D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Debug\WUManager.exe.manifest
 D:\Users\fabrizio.zavalloni\Documentos\OneDrive - Locaweb-\Projetos-.NET\Git\WUManager\WUManager\obj\Debug\WUManager.application
+D:\Users\fabrizio.zavalloni\Documentos\OD\Projetos-.NET\Git\WUManager\Output\bin\Debug\WUManager.exe.config
+D:\Users\fabrizio.zavalloni\Documentos\OD\Projetos-.NET\Git\WUManager\WUManager\obj\Debug\WUManager.exe
+D:\Users\fabrizio.zavalloni\Documentos\OD\Projetos-.NET\Git\WUManager\WUManager\obj\Debug\WUManager.pdb
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\Output\bin\Debug\psexec.exe
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\Output\bin\Debug\WUManager.exe.config
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\Output\bin\Debug\WUManager.exe.manifest
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\Output\bin\Debug\WUManager.application
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\Output\bin\Debug\WUManager.exe
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\Output\bin\Debug\WUManager.pdb
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.Controls.ProgressBar.resources
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.FormCredential.resources
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.FormMain.resources
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.FormAddHosts.resources
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.csproj.GenerateResource.Cache
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.csproj.CoreCompileInputs.cache
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.TrustInfo.xml
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.exe.manifest
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.application
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.exe
+C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.pdb

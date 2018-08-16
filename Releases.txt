@@ -21,7 +21,7 @@ WUA - Version 1.1.0.0
 WUManager - Version 1.2.0.0 - Ajuste no Check Pending Reboot para funcionar com Windows 2012 e 2012 R2.
 
 =================
-======= 20/01/2014 = Não finalizado
+======= 16/08/2018
 
-WUA - Version 1.1.0.0
-WUManager - Version 1.3.0.0 - Adição de alternate credencials 
+WUA - Utilizando a versao 4 do .NET Framework
+WuManager - Fix para rodar em Windows 2016/2012
