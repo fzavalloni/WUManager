@@ -82,3 +82,20 @@ C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.exe.ma
 C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.application
 C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.exe
 C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUManager\obj\Debug\WUManager.pdb
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Debug\psexec.exe
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Debug\WUManager.exe.config
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Debug\WUManager.exe.manifest
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Debug\WUManager.application
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Debug\WUManager.exe
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Debug\WUManager.pdb
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.Controls.ProgressBar.resources
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.FormCredential.resources
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.FormMain.resources
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.FormAddHosts.resources
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.csproj.GenerateResource.Cache
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.csproj.CoreCompileInputs.cache
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.TrustInfo.xml
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.exe.manifest
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.application
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.exe
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.pdb

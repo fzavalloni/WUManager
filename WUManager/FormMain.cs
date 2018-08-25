@@ -82,7 +82,7 @@
             f.ShowDialog();
         }
 
-        private void addHosts_Click(object sender, EventArgs e)
+        private void AddHosts_Click(object sender, EventArgs e)
         {
             this.OpenFormAddHosts();
         }
@@ -496,12 +496,12 @@
             }
         }
 
-        private void Act_GetLastBootInSelectedItens()
+        private void Act_GetReadinessInSelectedItens()
         {
             foreach (DataGridViewRow row in dataGridView.SelectedRows)
             {
                 string host = row.Cells["Host"].Value.ToString();
-                osManager.BeginGetLastBoot(host, row);
+                osManager.BeginHostReadiness(host, row);
             }
         }
 
@@ -553,72 +553,72 @@
 
         #region Tool Strip Menu
 
-        private void addToolStripMenuItem_Click(object sender, System.EventArgs e)
+        private void AddToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             this.OpenFormAddHosts();
         }
 
-        private void installUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void InstallUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_InstallUpdateInSelectedItens();
         }
 
-        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_Exit();
         }
 
-        private void startPingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void StartPingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Act_StartPingInSelectedItens();
         }
 
-        private void stopPingToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RtopPingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Act_StopPingInSelectedItens();
         }
 
-        private void getLastBootToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GetLastBootToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Act_GetLastBootInSelectedItens();
+            this.Act_GetReadinessInSelectedItens();
         }
 
-        private void rebootToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void RebootToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_RebootSelectedItens();
         }
 
-        private void startPingToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void StartPingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_StartPingInSelectedItens();
         }
 
-        private void stopPingToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void StopPingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_StopPingInSelectedItens();
         }
 
-        private void getLastBootToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void GetLastBootToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            this.Act_GetLastBootInSelectedItens();
+            this.Act_GetReadinessInSelectedItens();
         }
 
-        private void rebootToolStripMenuItem2_Click(object sender, EventArgs e)
+        private void RebootToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             this.Act_RebootSelectedItens();
         }
 
-        private void installUpdatesContextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InstallUpdatesContextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Act_InstallUpdateInSelectedItens();
         }
 
-        private void removeItensToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveItensToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Act_RemoveSelectedItens();
         }
 
-        private void removeContextToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveContextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Act_RemoveSelectedItens();
         }
@@ -626,27 +626,27 @@
         #endregion
 
 
-        private void checkRebootToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CheckRebootToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Act_StartCheckRebootSelectedItens();
         }
 
-        private void countUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CountUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_CountUpdatesSelectedItens();
         }
 
-        private void checkRebootToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void CheckRebootToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_StartCheckRebootSelectedItens();
         }
 
-        private void countUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CountUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Act_CountUpdatesSelectedItens();
         }
 
-        private void saveListToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dataGridView.Rows.Count != 0)
             {
@@ -676,7 +676,7 @@
             return list;
         }
 
-        private void credentialToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CredentialToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.OpenFormCredential();
         }

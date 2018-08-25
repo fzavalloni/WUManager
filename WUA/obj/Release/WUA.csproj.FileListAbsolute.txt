@@ -42,3 +42,15 @@ C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUA\obj\Release\WUA.csproj.ResolveCo
 C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUA\obj\Release\WUA.csproj.CoreCompileInputs.cache
 C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUA\obj\Release\WUA.exe
 C:\Users\fzavalloni\Desktop\WUManager 1.3.4\WUA\obj\Release\WUA.pdb
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Release\WUA.exe.config
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Release\WUA.exe
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Output\bin\Release\WUA.pdb
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\Interop.WUApiLib.dll
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.csproj.ResolveComReference.cache
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.csproj.CoreCompileInputs.cache
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.exe
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.pdb
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Binaries\Release\WUA.exe.config
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Binaries\Release\WUA.exe
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\Binaries\Release\WUA.pdb
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.csprojResolveAssemblyReference.cache

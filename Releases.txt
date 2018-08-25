@@ -25,3 +25,6 @@ WUManager - Version 1.2.0.0 - Ajuste no Check Pending Reboot para funcionar com 
 
 WUA - Utilizando a versao 4 do .NET Framework
 WuManager - Fix para rodar em Windows 2016/2012
+
+=======25/08/2018
+WuManager 1.4 - Replace GetLast boot for Get Host readiness that contains more information

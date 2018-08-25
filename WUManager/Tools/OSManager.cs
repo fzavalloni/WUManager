@@ -12,13 +12,13 @@
     {
         private delegate void RowMethodDelegate(string host, ref DataGridViewRow row);
         private List<DataGridViewRow> listRebootRow;
-        private List<DataGridViewRow> listLastBootRow;
+        private List<DataGridViewRow> listReadinessRow;
         private Font defaultCellStyle;
 
         public OSManager(Font defaultCellStyle)
         {
             this.listRebootRow = new List<DataGridViewRow>();
-            this.listLastBootRow = new List<DataGridViewRow>();
+            this.listReadinessRow = new List<DataGridViewRow>();
             this.defaultCellStyle = defaultCellStyle;
         }
 
@@ -40,29 +40,28 @@
             }
         }
 
-        public void BeginGetLastBoot(string host, DataGridViewRow row)
+        public void BeginHostReadiness(string host, DataGridViewRow row)
         {
-            lock (listLastBootRow)
+            lock (listReadinessRow)
             {
-                if (!listLastBootRow.Contains(row))
+                if (!listReadinessRow.Contains(row))
                 {
                     DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);
                     DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Preparing");
-                    //SetLastBootRowStyleFont(ref row, new Font(defaultCellStyle, FontStyle.Regular));                    
 
-                    listLastBootRow.Add(row);
+                    listReadinessRow.Add(row);
 
-                    RowMethodDelegate de = new RowMethodDelegate(StartGetLastBoot);
+                    RowMethodDelegate de = new RowMethodDelegate(StartHostReadiness);
                     de.BeginInvoke(host, ref row, null, null);
                 }
             }
         }
 
-        public void EndGetLastBoot(ref DataGridViewRow row)
+        public void EndReadiness(ref DataGridViewRow row)
         {
-            lock (listLastBootRow)
+            lock (listReadinessRow)
             {
-                listLastBootRow.Remove(row);
+                listReadinessRow.Remove(row);
             }
         }
 
@@ -138,19 +137,18 @@
                 DgvUtils.SetRowStyleForeColor(ref row, WUCollums.OperationResults, resultColor);
                 DgvUtils.SetRowValue(ref row, WUCollums.Status, rebootStatus);
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, rebootResult);
-            }            
+            }
         }
 
-        private void StartGetLastBoot(string host, ref DataGridViewRow row)
+        private void StartHostReadiness(string host, ref DataGridViewRow row)
         {
-            string lastBoot = string.Empty;
-            Color resultColor = Color.Black;
+            DateTime lastBootDate = DateTime.MinValue;
+            string automaticServicesStatus = string.Empty;
 
             try
             {
                 DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Connecting");
-
-                DateTime date = DateTime.MinValue;
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
 
                 ManagementScope scope = new ManagementScope(string.Format(@"\\{0}\root\cimv2", host));
                 scope.Options.EnablePrivileges = true;
@@ -164,30 +162,81 @@
 
                 scope.Connect();
 
-                ObjectQuery query = new ObjectQuery("SELECT LastBootUpTime FROM Win32_OperatingSystem");
-                using (ManagementObjectSearcher mos = new ManagementObjectSearcher(scope, query))
-                {
-                    foreach (ManagementObject mo in mos.Get())
-                    {
-                        date = ParseCIMDateTime(mo["LastBootUpTime"].ToString());
-                    }
-                }
+                lastBootDate = GetLasBoot(scope);
+                automaticServicesStatus = GetAutomaticServiceStatus(scope);
 
-                resultColor = Color.Black;
-                lastBoot = date.ToString("dd/MM/yyyy HH:mm");
-
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, lastBootDate.ToString("dd/MM/yyyy HH:mm"));
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, automaticServicesStatus);
             }
             catch (Exception ex)
             {
-                resultColor = Color.Red;
-                lastBoot = ex.Message;
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Red);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, ex.Message);
             }
             finally
             {
-                EndGetLastBoot(ref row);
+                EndReadiness(ref row);
+            }
+        }
 
-                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, resultColor);
-                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, lastBoot);
+        private string GetAutomaticServiceStatus(ManagementScope scope)
+        {
+            int automaticServiceCounter = 0;
+            int automaticServiceStartedCounter = 0;
+            bool isClusterMember = false;
+            string statusOutput = string.Empty;
+
+            ObjectQuery servicesQuery = new ObjectQuery("SELECT * FROM Win32_Service WHERE StartMode='Auto'");
+
+            foreach (ManagementObject mo in GetWmiResults(scope, servicesQuery))
+            {
+                if (!IsAutomaticDelayService(mo))
+                {
+                    automaticServiceCounter++;
+                    if (Convert.ToBoolean(mo["Started"]))
+                        automaticServiceStartedCounter++;
+                    if (string.Equals(mo["Name"].ToString(), "ClusSvc", StringComparison.CurrentCultureIgnoreCase))
+                        isClusterMember = true;
+                }
+            }
+
+            statusOutput = string.Format("Automatic Services Started: {0} of {1} - Cluster Member: {2}"
+                , automaticServiceStartedCounter, automaticServiceCounter, isClusterMember);
+
+            return statusOutput;
+        }
+
+        private bool IsAutomaticDelayService(ManagementObject mo)
+        {
+            //This wmi attribute is always available for Windows 10/2016
+            //In case of exptions(not found) it returns false
+            try
+            {
+                return Convert.ToBoolean(mo["DelayedAutoStart"]);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private DateTime GetLasBoot(ManagementScope scope)
+        {
+            DateTime date = DateTime.MinValue;
+            ObjectQuery lastBootQuery = new ObjectQuery("SELECT LastBootUpTime FROM Win32_OperatingSystem");
+            ManagementObjectCollection wmiResults = GetWmiResults(scope, lastBootQuery);
+            foreach (ManagementObject mo in wmiResults)
+            {
+                date = ParseCIMDateTime(mo["LastBootUpTime"].ToString());
+            }
+
+            return date;
+        }
+        private ManagementObjectCollection GetWmiResults(ManagementScope scope, ObjectQuery query)
+        {
+            using (ManagementObjectSearcher mos = new ManagementObjectSearcher(scope, query))
+            {
+                return mos.Get();
             }
         }
 
