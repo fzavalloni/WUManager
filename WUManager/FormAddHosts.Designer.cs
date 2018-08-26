@@ -30,13 +30,13 @@
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtBoxCustomLdapPath = new System.Windows.Forms.TextBox();
+            this.DefaultLdapPatchChBox = new System.Windows.Forms.CheckBox();
             this.btnSearchAD = new System.Windows.Forms.Button();
             this.lblLines = new System.Windows.Forms.Label();
             this.cmdAdd = new System.Windows.Forms.Button();
             this.textHosts = new System.Windows.Forms.TextBox();
             this.lblInstructions = new System.Windows.Forms.Label();
-            this.DefaultLdapPatchChBox = new System.Windows.Forms.CheckBox();
-            this.txtBoxCustomLdapPath = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -82,13 +82,35 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hosts";
             // 
+            // txtBoxCustomLdapPath
+            // 
+            this.txtBoxCustomLdapPath.Location = new System.Drawing.Point(298, 308);
+            this.txtBoxCustomLdapPath.Name = "txtBoxCustomLdapPath";
+            this.txtBoxCustomLdapPath.Size = new System.Drawing.Size(247, 22);
+            this.txtBoxCustomLdapPath.TabIndex = 5;
+            this.txtBoxCustomLdapPath.Text = "OU=Server,DC=contoso,DC=LOCAL";
+            this.txtBoxCustomLdapPath.Visible = false;
+            // 
+            // DefaultLdapPatchChBox
+            // 
+            this.DefaultLdapPatchChBox.AutoSize = true;
+            this.DefaultLdapPatchChBox.Checked = true;
+            this.DefaultLdapPatchChBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DefaultLdapPatchChBox.Location = new System.Drawing.Point(155, 308);
+            this.DefaultLdapPatchChBox.Name = "DefaultLdapPatchChBox";
+            this.DefaultLdapPatchChBox.Size = new System.Drawing.Size(148, 21);
+            this.DefaultLdapPatchChBox.TabIndex = 4;
+            this.DefaultLdapPatchChBox.Text = "Default LDAP Path";
+            this.DefaultLdapPatchChBox.UseVisualStyleBackColor = true;
+            this.DefaultLdapPatchChBox.CheckedChanged += new System.EventHandler(this.DefaultLdapPatchChBox_CheckedChanged);
+            // 
             // btnSearchAD
             // 
-            this.btnSearchAD.Location = new System.Drawing.Point(14, 308);
+            this.btnSearchAD.Location = new System.Drawing.Point(14, 302);
             this.btnSearchAD.Name = "btnSearchAD";
-            this.btnSearchAD.Size = new System.Drawing.Size(111, 28);
+            this.btnSearchAD.Size = new System.Drawing.Size(136, 28);
             this.btnSearchAD.TabIndex = 3;
-            this.btnSearchAD.Text = "Get AD Host";
+            this.btnSearchAD.Text = "Get hosts from AD";
             this.btnSearchAD.UseVisualStyleBackColor = true;
             this.btnSearchAD.Click += new System.EventHandler(this.BtnSearchAD_Click);
             // 
@@ -107,7 +129,7 @@
             this.cmdAdd.Location = new System.Drawing.Point(13, 267);
             this.cmdAdd.Margin = new System.Windows.Forms.Padding(4);
             this.cmdAdd.Name = "cmdAdd";
-            this.cmdAdd.Size = new System.Drawing.Size(112, 28);
+            this.cmdAdd.Size = new System.Drawing.Size(136, 28);
             this.cmdAdd.TabIndex = 1;
             this.cmdAdd.Text = "Add";
             this.cmdAdd.UseVisualStyleBackColor = true;
@@ -134,28 +156,6 @@
             this.lblInstructions.TabIndex = 0;
             this.lblInstructions.Text = "Add one host per line.\r\nEmpty lines are ignored.\r\nSpaces at the beginning, middle" +
     " and end of lines are removed.";
-            // 
-            // DefaultLdapPatchChBox
-            // 
-            this.DefaultLdapPatchChBox.AutoSize = true;
-            this.DefaultLdapPatchChBox.Checked = true;
-            this.DefaultLdapPatchChBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.DefaultLdapPatchChBox.Location = new System.Drawing.Point(145, 308);
-            this.DefaultLdapPatchChBox.Name = "DefaultLdapPatchChBox";
-            this.DefaultLdapPatchChBox.Size = new System.Drawing.Size(108, 21);
-            this.DefaultLdapPatchChBox.TabIndex = 4;
-            this.DefaultLdapPatchChBox.Text = "Default Path";
-            this.DefaultLdapPatchChBox.UseVisualStyleBackColor = true;
-            this.DefaultLdapPatchChBox.CheckedChanged += new System.EventHandler(this.DefaultLdapPatchChBox_CheckedChanged);
-            // 
-            // txtBoxCustomLdapPath
-            // 
-            this.txtBoxCustomLdapPath.Location = new System.Drawing.Point(259, 308);
-            this.txtBoxCustomLdapPath.Name = "txtBoxCustomLdapPath";
-            this.txtBoxCustomLdapPath.Size = new System.Drawing.Size(286, 22);
-            this.txtBoxCustomLdapPath.TabIndex = 5;
-            this.txtBoxCustomLdapPath.Text = "OU=Server,DC=contoso,DC=LOCAL";
-            this.txtBoxCustomLdapPath.Visible = false;
             // 
             // FormAddHosts
             // 
