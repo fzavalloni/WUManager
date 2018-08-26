@@ -74,13 +74,7 @@
         {
             FormAddHosts f = new FormAddHosts(this);
             f.ShowDialog();
-        }
-
-        private void OpenFormCredential()
-        {
-            FormCredential f = new FormCredential();
-            f.ShowDialog();
-        }
+        }      
 
         private void AddHosts_Click(object sender, EventArgs e)
         {
@@ -672,14 +666,7 @@
                 string line = string.Format("{0}\r\n", obj.Cells["Host"].Value.ToString());
                 list.AppendText(line);
             }
-
             return list;
         }
-
-        private void CredentialToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.OpenFormCredential();
-        }
-
     }
 }
