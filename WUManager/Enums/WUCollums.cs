@@ -1,13 +1,12 @@
 ﻿namespace WUManager.Enums
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     internal enum WUCollums
     {
         Host,
+        BatchStep,
         LastBoot,
+        Cluster,
+        ServicesRunning,
         PingReply,
         Status,
         Progress,

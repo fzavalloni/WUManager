@@ -44,6 +44,17 @@
                 row.Cells[wuCollum.ToString()].Value = obj;
             }
             catch { }
-        }        
+        }
+        internal static Object GetRowValue(ref DataGridViewRow row, WUCollums wuCollum)
+        {
+            try
+            {
+                return row.Cells[wuCollum.ToString()].Value;
+            }
+            catch
+            {
+                return "row not found";
+            }
+        }
     }
 }

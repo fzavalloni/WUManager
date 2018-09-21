@@ -31,16 +31,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Host = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BatchStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastBoot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cluster = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ServicesRunning = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PingReply = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Progress = new WUManager.ProgBar.DataGridViewProgressColumn();
             this.Updates = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RebootRequired = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.OperationResults = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +55,7 @@
             this.checkRebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.countUpdatesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.installUpdatesBatchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.rebootToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +80,12 @@
             this.saveListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.grpBoxOptions = new System.Windows.Forms.GroupBox();
-            this.chkBoxEnablePingAfterBoot = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numUpDownTreads = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownAttemptsNumber = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownMinutesReboot = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmdAddHosts = new System.Windows.Forms.Button();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,12 +98,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.addHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFile = new System.Windows.Forms.SaveFileDialog();
-            this.dataGridViewProgressColumn1 = new WUManager.ProgBar.DataGridViewProgressColumn();
-            this.dataGridViewProgressColumn2 = new WUManager.ProgBar.DataGridViewProgressColumn();
-            this.dataGridViewProgressColumn3 = new WUManager.ProgBar.DataGridViewProgressColumn();
-            this.dataGridViewProgressColumn4 = new WUManager.ProgBar.DataGridViewProgressColumn();
-            this.dataGridViewProgressColumn5 = new WUManager.ProgBar.DataGridViewProgressColumn();
-            this.dataGridViewProgressColumn6 = new WUManager.ProgBar.DataGridViewProgressColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -103,6 +106,9 @@
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.grpBoxOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTreads)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownAttemptsNumber)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownMinutesReboot)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -124,8 +130,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grpBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAddHosts);
-            this.splitContainer1.Size = new System.Drawing.Size(1324, 415);
-            this.splitContainer1.SplitterDistance = 291;
+            this.splitContainer1.Size = new System.Drawing.Size(1659, 560);
+            this.splitContainer1.SplitterDistance = 429;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -138,37 +144,39 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Host,
+            this.BatchStep,
             this.LastBoot,
+            this.Cluster,
+            this.ServicesRunning,
             this.PingReply,
             this.Status,
-            this.Progress,
             this.Updates,
             this.RebootRequired,
             this.OperationResults});
             this.dataGridView.ContextMenuStrip = this.contextMenuStrip1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SlateBlue;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SlateBlue;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView.Location = new System.Drawing.Point(0, 28);
             this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView.Name = "dataGridView";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(1324, 263);
+            this.dataGridView.Size = new System.Drawing.Size(1659, 401);
             this.dataGridView.TabIndex = 2;
             // 
             // Host
@@ -176,10 +184,33 @@
             this.Host.HeaderText = "Host";
             this.Host.Name = "Host";
             // 
+            // BatchStep
+            // 
+            this.BatchStep.HeaderText = "Batch Step";
+            this.BatchStep.Name = "BatchStep";
+            this.BatchStep.ReadOnly = true;
+            this.BatchStep.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BatchStep.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BatchStep.Width = 120;
+            // 
             // LastBoot
             // 
             this.LastBoot.HeaderText = "Last Boot";
             this.LastBoot.Name = "LastBoot";
+            // 
+            // Cluster
+            // 
+            this.Cluster.HeaderText = "Clustered";
+            this.Cluster.Name = "Cluster";
+            this.Cluster.Width = 60;
+            // 
+            // ServicesRunning
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ServicesRunning.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ServicesRunning.HeaderText = "Services Running";
+            this.ServicesRunning.Name = "ServicesRunning";
+            this.ServicesRunning.Width = 60;
             // 
             // PingReply
             // 
@@ -193,16 +224,10 @@
             this.Status.Name = "Status";
             this.Status.Width = 150;
             // 
-            // Progress
-            // 
-            this.Progress.HeaderText = "Progress";
-            this.Progress.Name = "Progress";
-            this.Progress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // Updates
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Updates.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Updates.DefaultCellStyle = dataGridViewCellStyle2;
             this.Updates.HeaderText = "Updates";
             this.Updates.Name = "Updates";
             this.Updates.Width = 55;
@@ -231,13 +256,14 @@
             this.checkRebootToolStripMenuItem,
             this.countUpdatesToolStripMenuItem1,
             this.toolStripSeparator4,
+            this.installUpdatesBatchingToolStripMenuItem,
             this.installUpdatesToolStripMenuItem,
             this.toolStripSeparator8,
             this.rebootToolStripMenuItem1,
             this.toolStripSeparator7,
             this.removeItensToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(228, 220);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(228, 244);
             // 
             // startPingToolStripMenuItem
             // 
@@ -276,13 +302,20 @@
             // 
             this.countUpdatesToolStripMenuItem1.Name = "countUpdatesToolStripMenuItem1";
             this.countUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(227, 24);
-            this.countUpdatesToolStripMenuItem1.Text = "Count Updates";
+            this.countUpdatesToolStripMenuItem1.Text = "Count Updates (Audit)";
             this.countUpdatesToolStripMenuItem1.Click += new System.EventHandler(this.CountUpdatesToolStripMenuItem1_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(224, 6);
+            // 
+            // installUpdatesBatchingToolStripMenuItem
+            // 
+            this.installUpdatesBatchingToolStripMenuItem.Name = "installUpdatesBatchingToolStripMenuItem";
+            this.installUpdatesBatchingToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
+            this.installUpdatesBatchingToolStripMenuItem.Text = "Install Updates - Batch";
+            this.installUpdatesBatchingToolStripMenuItem.Click += new System.EventHandler(this.InstallUpdatesBatchingToolStripMenuItem_Click);
             // 
             // installUpdatesToolStripMenuItem
             // 
@@ -323,7 +356,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1324, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1659, 28);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -456,29 +489,82 @@
             // 
             // grpBoxOptions
             // 
-            this.grpBoxOptions.Controls.Add(this.chkBoxEnablePingAfterBoot);
+            this.grpBoxOptions.Controls.Add(this.label3);
+            this.grpBoxOptions.Controls.Add(this.numUpDownTreads);
+            this.grpBoxOptions.Controls.Add(this.numUpDownAttemptsNumber);
+            this.grpBoxOptions.Controls.Add(this.numUpDownMinutesReboot);
+            this.grpBoxOptions.Controls.Add(this.label2);
+            this.grpBoxOptions.Controls.Add(this.label1);
             this.grpBoxOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.grpBoxOptions.Location = new System.Drawing.Point(1057, 0);
+            this.grpBoxOptions.Location = new System.Drawing.Point(1348, 0);
             this.grpBoxOptions.Margin = new System.Windows.Forms.Padding(4);
             this.grpBoxOptions.Name = "grpBoxOptions";
             this.grpBoxOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.grpBoxOptions.Size = new System.Drawing.Size(267, 119);
+            this.grpBoxOptions.Size = new System.Drawing.Size(311, 126);
             this.grpBoxOptions.TabIndex = 2;
             this.grpBoxOptions.TabStop = false;
-            this.grpBoxOptions.Text = "Options";
+            this.grpBoxOptions.Text = "Batch Exection Options";
             // 
-            // chkBoxEnablePingAfterBoot
+            // label3
             // 
-            this.chkBoxEnablePingAfterBoot.AutoSize = true;
-            this.chkBoxEnablePingAfterBoot.Checked = true;
-            this.chkBoxEnablePingAfterBoot.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBoxEnablePingAfterBoot.Location = new System.Drawing.Point(8, 23);
-            this.chkBoxEnablePingAfterBoot.Margin = new System.Windows.Forms.Padding(4);
-            this.chkBoxEnablePingAfterBoot.Name = "chkBoxEnablePingAfterBoot";
-            this.chkBoxEnablePingAfterBoot.Size = new System.Drawing.Size(183, 21);
-            this.chkBoxEnablePingAfterBoot.TabIndex = 0;
-            this.chkBoxEnablePingAfterBoot.Text = "Enable ping after reboot";
-            this.chkBoxEnablePingAfterBoot.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(54, 77);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(131, 17);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Number of Threads";
+            // 
+            // numUpDownTreads
+            // 
+            this.numUpDownTreads.Location = new System.Drawing.Point(7, 77);
+            this.numUpDownTreads.Name = "numUpDownTreads";
+            this.numUpDownTreads.ReadOnly = true;
+            this.numUpDownTreads.Size = new System.Drawing.Size(41, 22);
+            this.numUpDownTreads.TabIndex = 5;
+            // 
+            // numUpDownAttemptsNumber
+            // 
+            this.numUpDownAttemptsNumber.Location = new System.Drawing.Point(7, 53);
+            this.numUpDownAttemptsNumber.Name = "numUpDownAttemptsNumber";
+            this.numUpDownAttemptsNumber.ReadOnly = true;
+            this.numUpDownAttemptsNumber.Size = new System.Drawing.Size(41, 22);
+            this.numUpDownAttemptsNumber.TabIndex = 4;
+            this.numUpDownAttemptsNumber.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // numUpDownMinutesReboot
+            // 
+            this.numUpDownMinutesReboot.Location = new System.Drawing.Point(7, 25);
+            this.numUpDownMinutesReboot.Name = "numUpDownMinutesReboot";
+            this.numUpDownMinutesReboot.ReadOnly = true;
+            this.numUpDownMinutesReboot.Size = new System.Drawing.Size(41, 22);
+            this.numUpDownMinutesReboot.TabIndex = 3;
+            this.numUpDownMinutesReboot.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(54, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(223, 17);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Number of Attempts (boot checks)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(54, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(202, 17);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Minutes between last boot time";
             // 
             // cmdAddHosts
             // 
@@ -538,10 +624,10 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 393);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 538);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1324, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1659, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -550,53 +636,17 @@
             this.addHostsToolStripMenuItem.Name = "addHostsToolStripMenuItem";
             this.addHostsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // dataGridViewProgressColumn1
-            // 
-            this.dataGridViewProgressColumn1.HeaderText = "Progress";
-            this.dataGridViewProgressColumn1.Name = "dataGridViewProgressColumn1";
-            this.dataGridViewProgressColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dataGridViewProgressColumn2
-            // 
-            this.dataGridViewProgressColumn2.HeaderText = "Progress";
-            this.dataGridViewProgressColumn2.Name = "dataGridViewProgressColumn2";
-            this.dataGridViewProgressColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dataGridViewProgressColumn3
-            // 
-            this.dataGridViewProgressColumn3.HeaderText = "Progress";
-            this.dataGridViewProgressColumn3.Name = "dataGridViewProgressColumn3";
-            this.dataGridViewProgressColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dataGridViewProgressColumn4
-            // 
-            this.dataGridViewProgressColumn4.HeaderText = "Progress";
-            this.dataGridViewProgressColumn4.Name = "dataGridViewProgressColumn4";
-            this.dataGridViewProgressColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dataGridViewProgressColumn5
-            // 
-            this.dataGridViewProgressColumn5.HeaderText = "Progress";
-            this.dataGridViewProgressColumn5.Name = "dataGridViewProgressColumn5";
-            this.dataGridViewProgressColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dataGridViewProgressColumn6
-            // 
-            this.dataGridViewProgressColumn6.HeaderText = "Progress";
-            this.dataGridViewProgressColumn6.Name = "dataGridViewProgressColumn6";
-            this.dataGridViewProgressColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1324, 415);
+            this.ClientSize = new System.Drawing.Size(1659, 560);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WUManager - v1.4";
+            this.Text = "WUManager - v1.5";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -609,6 +659,9 @@
             this.menuStrip1.PerformLayout();
             this.grpBoxOptions.ResumeLayout(false);
             this.grpBoxOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTreads)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownAttemptsNumber)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownMinutesReboot)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -619,7 +672,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button cmdAddHosts;
-        private WUManager.ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn1;
+        //private WUManager.ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn1;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -651,14 +704,7 @@
         private System.Windows.Forms.ToolStripMenuItem stopPingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem getLastBootToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Host;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastBoot;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PingReply;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private WUManager.ProgBar.DataGridViewProgressColumn Progress;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Updates;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn RebootRequired;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OperationResults;
+        //private WUManager.ProgBar.DataGridViewProgressColumn Progress;
         private System.Windows.Forms.ToolStripMenuItem startPingToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem stopPingToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
@@ -670,14 +716,29 @@
         private System.Windows.Forms.ToolStripMenuItem countUpdatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveListToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFile;
-        private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn2;
-        private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn3;
-        private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn4;
-        private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn5;
-        private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn6;
+        //private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn2;
+        //private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn3;
+        //private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn4;
+        //private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn5;
+        //private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn6;
         private System.Windows.Forms.GroupBox grpBoxOptions;
-        private System.Windows.Forms.CheckBox chkBoxEnablePingAfterBoot;
-
+        private System.Windows.Forms.ToolStripMenuItem installUpdatesBatchingToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown numUpDownAttemptsNumber;
+        private System.Windows.Forms.NumericUpDown numUpDownMinutesReboot;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Host;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BatchStep;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastBoot;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Cluster;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ServicesRunning;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PingReply;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Updates;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn RebootRequired;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OperationResults;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numUpDownTreads;
     }
 }
 

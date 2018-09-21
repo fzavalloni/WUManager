@@ -2,16 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
     using System.Drawing;
-    using System.Text;
     using System.IO;
     using System.Windows.Forms;
     using System.Threading;
-    using System.Diagnostics;
-    using System.Security.Permissions;
-
     using WUManager.Enums;
     using WUManager.Tools;
 
@@ -24,6 +18,7 @@
         private Dictionary<DataGridViewRow, Thread> threadList;
         private Tools.Pinger pinger;
         private Tools.OSManager osManager;
+        static Semaphore semaphore;
 
         public FormMain()
         {
@@ -74,7 +69,7 @@
         {
             FormAddHosts f = new FormAddHosts(this);
             f.ShowDialog();
-        }      
+        }
 
         private void AddHosts_Click(object sender, EventArgs e)
         {
@@ -87,7 +82,7 @@
         {
             DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_CountUpdates);
 
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 de.BeginInvoke(row, null, null);
             }
@@ -121,7 +116,7 @@
         {
             DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_InstallUpdates);
 
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 de.BeginInvoke(row, null, null);
             }
@@ -191,6 +186,7 @@
                         //WUA_NoApplicableUpdates
 
                         DgvUtils.SetRowValue(ref row, WUCollums.Status, "WU No Applicable Updates");
+                        DgvUtils.SetRowValue(ref row, WUCollums.Updates, 0);
                         break;
                     }
                 case WUAOperations.WUA_UpdateItem:
@@ -293,18 +289,8 @@
                 DgvUtils.SetRowValue(ref row, WUCollums.Progress, 0);
 
                 string hostName = row.Cells["Host"].Value.ToString();
-                try
-                {
-                    operSys.CopyPsExec(hostName);
-                }
-                catch (Exception ex)
-                {
-                    DgvUtils.SetRowValue(ref row, WUCollums.Status, "StartError");
-                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, ex.Message);
-                    this.Sys_RemoveThreadRow(ref row);
-                    return;
-                }
 
+                operSys.CopyPsExec(hostName);
 
                 StreamReader reader = operSys.ExecWua("/install /showProgress", hostName);
 
@@ -338,22 +324,13 @@
                 row.DefaultCellStyle.SelectionBackColor = Color.Coral;
 
                 DgvUtils.SetRowValue(ref row, WUCollums.Status, "Starting");
+                DgvUtils.SetRowValue(ref row, WUCollums.Updates, string.Empty);
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
                 DgvUtils.SetRowValue(ref row, WUCollums.Progress, 0);
 
                 string hostName = row.Cells["Host"].Value.ToString();
 
-                try
-                {
-                    operSys.CopyPsExec(hostName);
-                }
-                catch (Exception ex)
-                {
-                    DgvUtils.SetRowValue(ref row, WUCollums.Status, "StartError");
-                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, ex.Message);
-                    this.Sys_RemoveThreadRow(ref row);
-                    return;
-                }
+                operSys.CopyPsExec(hostName);
 
                 StreamReader reader = operSys.ExecWua("/countUpdates", hostName);
 
@@ -389,7 +366,7 @@
         {
             DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_RemoveItem);
 
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 de.BeginInvoke(row, null, null);
             }
@@ -434,10 +411,24 @@
 
             this.Close();
         }
+        // This method was created because, by default, the method SelectedRows execute the row
+        // from the botton to the top, and it fixes this to keep the execution order more
+        // intuitive mainly for the Batch Executions
+        private List<DataGridViewRow> InvertSelectedRowOrder(DataGridViewSelectedRowCollection selectedRows)
+        {
+            List<DataGridViewRow> rowList = new List<DataGridViewRow>();
+            foreach (DataGridViewRow row in selectedRows)
+            {
+                rowList.Add(row);
+            }
+            rowList.Reverse();
+            return rowList;
+        }
 
         private void Act_StartPingInSelectedItens()
         {
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 string host = row.Cells["Host"].Value.ToString();
                 pinger.BeginStart(host, row);
@@ -447,7 +438,7 @@
         private void Act_StartCheckRebootSelectedItens()
         {
             DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StartCheckReboot);
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 de.BeginInvoke(row, null, null);
             }
@@ -484,7 +475,7 @@
 
         private void Act_StopPingInSelectedItens()
         {
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 pinger.BeginStop(row);
             }
@@ -492,7 +483,7 @@
 
         private void Act_GetReadinessInSelectedItens()
         {
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 string host = row.Cells["Host"].Value.ToString();
                 osManager.BeginHostReadiness(host, row);
@@ -501,18 +492,31 @@
 
         private void Act_RebootSelectedItens()
         {
-            foreach (DataGridViewRow row in dataGridView.SelectedRows)
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
                 de.BeginInvoke(row, null, null);
             }
         }
 
+        private void Act_InstallUpdateBatchInSelectedItens()
+        {
+            int threadCounter = (int)numUpDownTreads.Value == 0 ? 10000 : (int)numUpDownTreads.Value;
+            semaphore = new Semaphore(threadCounter, 10000);
+
+            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_InstallUpdatesBatch);
+
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                de.BeginInvoke(row, null, null);
+            }
+        }
+
         private void Act_StopThreadAndReboot(DataGridViewRow row)
         {
+            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
             if (dataGridView.InvokeRequired)
-            {
-                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
+            {                
                 dataGridView.Invoke(de, row);
             }
             else
@@ -527,18 +531,13 @@
                     {
                         if (threadList.ContainsKey(row))
                         {
-                            DgvUtils.SetRowValue(ref row, WUCollums.Status, "WU Aborting, wait ...");
-
                             threadList[row].Abort(null);
 
                             Thread.Sleep(5000);
                         }
                     }
 
-                    if (chkBoxEnablePingAfterBoot.Checked == true)
-                    {
-                        pinger.BeginStart(host, row);
-                    }
+                    pinger.BeginStart(host, row);
                 }
             }
         }
@@ -668,5 +667,154 @@
             }
             return list;
         }
+
+        private void InstallUpdatesBatchingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string batchWarningMessage = $"Warning: All the selected servers will be patched and rebooted automatically!" + Environment.NewLine +
+                $"Steps done during the Bath:" + Environment.NewLine +
+                $"1- Install Updates" + Environment.NewLine +
+                $"2- Reboot the host and wait it comes on line" + Environment.NewLine +
+                $"3- Count pending updates (Audit)" + Environment.NewLine +
+                $"Do you really want to continue?";
+            DialogResult dialogResult = MessageBox.Show(batchWarningMessage, "Confirmation", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                this.Act_InstallUpdateBatchInSelectedItens();
+            }
+        }
+
+        private void Act_InstallUpdatesBatch(DataGridViewRow row)
+        {
+            DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Waiting thread");
+            semaphore.WaitOne();
+
+            lock (threadList)
+            {
+                if (threadList.ContainsKey(row))
+                {
+                    return;
+                }
+            }
+            Thread newThread = new Thread(Act_InstallUpdatesBatchExecutor);
+
+            lock (threadList)
+            {
+                threadList.Add(row, newThread);
+            }
+
+            newThread.IsBackground = true;
+            newThread.Start(row);
+        }
+
+        private void Act_InstallUpdatesBatchExecutor(object rowObject)
+        {
+            bool isRebootRequired = false;
+            DateTime lastReboot = new DateTime();
+            DataGridViewRow row = (DataGridViewRow)rowObject;
+            string host = row.Cells["Host"].Value.ToString();
+            try
+            {
+                int minutesRebootLastRebootCheck = (int)numUpDownMinutesReboot.Value;
+                int rebootCheckAttempts = (int)numUpDownAttemptsNumber.Value;
+
+                // Install Updates
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.Status, Color.Black);
+                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Inst_Updates (1/4)");
+
+                Act_InstallUpdatesExecutor(row);
+                //On error it stops the batch
+                CheckBatchExecutionErrors(row);
+
+                isRebootRequired = Convert.ToBoolean(DgvUtils.GetRowValue(ref row, WUCollums.RebootRequired));
+                int updatesInstalled = Convert.ToInt32(DgvUtils.GetRowValue(ref row, WUCollums.Updates));
+
+                // Reboot                
+                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Rebooting (2/4)");
+                if (isRebootRequired)
+                {
+                    int attempts = 0;
+                    string errorRebootMessage = string.Empty;
+                    osManager.StartReboot(host, ref row);
+                    pinger.BeginStart(host, row);
+
+                    // Testing server when it is online
+                    do
+                    {
+                        try
+                        {
+                            //Wait 1 minute 
+                            Thread.Sleep(60000);
+                            if (attempts <= rebootCheckAttempts)
+                            {
+                                osManager.StartHostReadiness(host, ref row);
+                                lastReboot = DateTime.Parse(DgvUtils.GetRowValue(ref row, WUCollums.LastBoot).ToString());
+                                attempts++;
+                            }
+                            else
+                            {
+                                errorRebootMessage = $"Number of attempts has been reached";
+                                break;
+                            }
+                        }
+                        catch
+                        {
+                            attempts++;
+                        }
+                        finally
+                        {
+                            DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, $"Server is not online yet......number of attempts: {attempts}");
+                        }
+                        // Check if the last boot time attribute
+                    } while ((DateTime.Now - lastReboot).TotalMinutes >= minutesRebootLastRebootCheck);
+
+                    // Stop the execution when it has reached the attempts limit 
+                    if (!string.IsNullOrEmpty(errorRebootMessage))
+                        throw new Exception(errorRebootMessage);
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Server Online");
+
+                    pinger.BeginStop(row);
+                }
+                else
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Reboot not required");
+                }
+
+                // Count Updates
+                if (updatesInstalled != 0)
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Count_Updates (3/4)");
+                    Act_CountUpdatesExecutor(row);
+                    //On error it stops the batch
+                    CheckBatchExecutionErrors(row);
+                }
+
+                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Finished (4/4)");
+            }
+            catch (Exception ex)
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "ThreadError");
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.Status, Color.Red);
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, ex.Message);
+            }
+            finally
+            {
+                semaphore.Release();
+                this.Sys_RemoveThreadRow(ref row);
+            }
+        }
+
+        private void CheckBatchExecutionErrors(DataGridViewRow row)
+        {
+            string batchStatus = DgvUtils.GetRowValue(ref row, WUCollums.Status).ToString();
+            string operationResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
+            if (string.Equals(batchStatus,
+                "ThreadError",
+                StringComparison.CurrentCultureIgnoreCase)
+                )
+            {
+                throw new Exception($"BatchExecutionError: {operationResult}");
+            }
+        }
+
     }
 }

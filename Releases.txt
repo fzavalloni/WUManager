@@ -28,3 +28,6 @@ WuManager - Fix para rodar em Windows 2016/2012
 
 =======25/08/2018
 WuManager 1.4 - Replace GetLast boot for Get Host readiness that contains more information
+
+=======21/09/2018
+WuManager 1.5 - Added Install Updates on Batch mode

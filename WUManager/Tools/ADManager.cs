@@ -39,6 +39,15 @@ namespace WUManager.Tools
             return sb;            
         }
 
+        public string GetDefaultLdapPath()
+        {
+            DirectoryEntry rootDSE = new DirectoryEntry("LDAP://RootDSE");
+
+            string defaultNamingContext = rootDSE.Properties["defaultNamingContext"].Value.ToString();
+
+            return defaultNamingContext;
+        }
+
         public void Dispose()
         {
             adEntry.Dispose();

@@ -41,14 +41,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="62464">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="67072">
       <assemblyIdentity name="WUManager" version="1.3.2.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>gzUA1e6FaHHfrvTBuBXiKo4HS3wtGBRzT2iUr3Gem6k=</dsig:DigestValue>
+        <dsig:DigestValue>oT4PsGgFkjVAx+vlOOS+bwNauPZoSuaUZ+md3Xp8rbk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

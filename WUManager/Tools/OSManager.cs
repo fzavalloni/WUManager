@@ -46,8 +46,7 @@
             {
                 if (!listReadinessRow.Contains(row))
                 {
-                    DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);
-                    DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Preparing");
+                    DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);                    
 
                     listReadinessRow.Add(row);
 
@@ -73,7 +72,7 @@
             }
         }
 
-        private void StartReboot(string host, ref DataGridViewRow row)
+        public void StartReboot(string host, ref DataGridViewRow row)
         {
             object rebootResult = string.Empty;
             string rebootStatus = string.Empty;
@@ -137,18 +136,23 @@
                 DgvUtils.SetRowStyleForeColor(ref row, WUCollums.OperationResults, resultColor);
                 DgvUtils.SetRowValue(ref row, WUCollums.Status, rebootStatus);
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, rebootResult);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
             }
         }
 
-        private void StartHostReadiness(string host, ref DataGridViewRow row)
+        public void StartHostReadiness(string host, ref DataGridViewRow row)
         {
             DateTime lastBootDate = DateTime.MinValue;
-            string automaticServicesStatus = string.Empty;
+            ServiceHostStatus automaticServicesStatus;
+
+            DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
+            DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
+            DgvUtils.SetRowValue(ref row, WUCollums.ServicesRunning, string.Empty);
+            DgvUtils.SetRowValue(ref row, WUCollums.Cluster, false);            
 
             try
             {
-                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Connecting");
-                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Connecting");                
 
                 ManagementScope scope = new ManagementScope(string.Format(@"\\{0}\root\cimv2", host));
                 scope.Options.EnablePrivileges = true;
@@ -166,7 +170,9 @@
                 automaticServicesStatus = GetAutomaticServiceStatus(scope);
 
                 DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, lastBootDate.ToString("dd/MM/yyyy HH:mm"));
-                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, automaticServicesStatus);
+                DgvUtils.SetRowValue(ref row, WUCollums.Cluster, automaticServicesStatus.IsClustered);
+                DgvUtils.SetRowValue(ref row, WUCollums.ServicesRunning, automaticServicesStatus.ServicesRunning);
+
             }
             catch (Exception ex)
             {
@@ -179,12 +185,10 @@
             }
         }
 
-        private string GetAutomaticServiceStatus(ManagementScope scope)
+        private ServiceHostStatus GetAutomaticServiceStatus(ManagementScope scope)
         {
-            int automaticServiceCounter = 0;
             int automaticServiceStartedCounter = 0;
             bool isClusterMember = false;
-            string statusOutput = string.Empty;
 
             ObjectQuery servicesQuery = new ObjectQuery("SELECT * FROM Win32_Service WHERE StartMode='Auto'");
 
@@ -192,7 +196,6 @@
             {
                 if (!IsAutomaticDelayService(mo))
                 {
-                    automaticServiceCounter++;
                     if (Convert.ToBoolean(mo["Started"]))
                         automaticServiceStartedCounter++;
                     if (string.Equals(mo["Name"].ToString(), "ClusSvc", StringComparison.CurrentCultureIgnoreCase))
@@ -200,10 +203,11 @@
                 }
             }
 
-            statusOutput = string.Format("Automatic Services Started: {0} of {1} - Cluster Member: {2}"
-                , automaticServiceStartedCounter, automaticServiceCounter, isClusterMember);
-
-            return statusOutput;
+            return new ServiceHostStatus
+            {
+                ServicesRunning = automaticServiceStartedCounter,
+                IsClustered = isClusterMember
+            };
         }
 
         private bool IsAutomaticDelayService(ManagementObject mo)
@@ -272,5 +276,12 @@
             return date;
         }
 
+    }
+
+    public class ServiceHostStatus
+    {
+        public int ServicesRunning { get; set; }
+
+        public bool IsClustered { get; set; }
     }
 }

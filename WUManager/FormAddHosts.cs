@@ -74,12 +74,22 @@
 
         private void DefaultLdapPatchChBox_CheckedChanged(object sender, EventArgs e)
         {
+            ADManager adMgr;
             if (DefaultLdapPatchChBox.Checked)
             {
                 txtBoxCustomLdapPath.Visible = false;
             }
             else
             {
+                try
+                {
+                    adMgr = new ADManager();
+                    
+                    string ldapDefaultPath = adMgr.GetDefaultLdapPath();
+                    txtBoxCustomLdapPath.Text = ldapDefaultPath;
+                }
+                catch { }
+
                 txtBoxCustomLdapPath.Visible = true;
             }
         }
