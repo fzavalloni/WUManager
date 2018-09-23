@@ -89,14 +89,14 @@
 
                                 if (reply.Status == IPStatus.Success)
                                 {
-                                    rep = string.Format("{0} {1} Time {2}",
+                                    rep = string.Format("{0} - {1} Time {2}",
                                         ++n, reply.Address, reply.RoundtripTime);
 
                                     SetRowStyleForeColor(ref row, Color.Black);
                                 }
                                 else
                                 {
-                                    rep = string.Format("{0} {1}",
+                                    rep = string.Format("{0} - {1}",
                                         ++n, reply.Status);
 
                                     SetRowStyleForeColor(ref row, Color.Red);
@@ -105,7 +105,7 @@
                         }
                         catch (Exception ex)
                         {
-                            rep = string.Format("{0} {1}",
+                            rep = string.Format("{0} - {1}",
                                 ++n, ex.GetBaseException().Message);
 
                             SetRowStyleForeColor(ref row, Color.Red);

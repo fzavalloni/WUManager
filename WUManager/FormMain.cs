@@ -8,6 +8,7 @@
     using System.Threading;
     using WUManager.Enums;
     using WUManager.Tools;
+    using System.Diagnostics;
 
     delegate void DataGridViewAddRowDelegate(string host);
     delegate void DataGridViewAddRowsDelegate(string[] hosts);
@@ -19,6 +20,7 @@
         private Tools.Pinger pinger;
         private Tools.OSManager osManager;
         static Semaphore semaphore;
+        private bool isBatchExecution = false;
 
         public FormMain()
         {
@@ -353,11 +355,14 @@
 
         private void Sys_RemoveThreadRow(ref DataGridViewRow row)
         {
-            lock (threadList)
+            if (!isBatchExecution)
             {
-                if (threadList.ContainsKey(row))
+                lock (threadList)
                 {
-                    threadList.Remove(row);
+                    if (threadList.ContainsKey(row))
+                    {
+                        threadList.Remove(row);
+                    }
                 }
             }
         }
@@ -502,7 +507,8 @@
         private void Act_InstallUpdateBatchInSelectedItens()
         {
             int threadCounter = (int)numUpDownTreads.Value == 0 ? 10000 : (int)numUpDownTreads.Value;
-            semaphore = new Semaphore(threadCounter, 10000);
+            if (semaphore == null)
+                semaphore = new Semaphore(threadCounter, 10000);
 
             DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_InstallUpdatesBatch);
 
@@ -516,7 +522,7 @@
         {
             DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
             if (dataGridView.InvokeRequired)
-            {                
+            {
                 dataGridView.Invoke(de, row);
             }
             else
@@ -708,10 +714,14 @@
 
         private void Act_InstallUpdatesBatchExecutor(object rowObject)
         {
+            isBatchExecution = true;
             bool isRebootRequired = false;
             DateTime lastReboot = new DateTime();
             DataGridViewRow row = (DataGridViewRow)rowObject;
             string host = row.Cells["Host"].Value.ToString();
+            string operResult = string.Empty;
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
             try
             {
                 int minutesRebootLastRebootCheck = (int)numUpDownMinutesReboot.Value;
@@ -737,35 +747,37 @@
                     osManager.StartReboot(host, ref row);
                     pinger.BeginStart(host, row);
 
-                    // Testing server when it is online
+                    // Testing server when it comes online
                     do
                     {
-                        try
+                        //Wait 30 seconds 
+                        Thread.Sleep(30000);
+                        if (attempts <= rebootCheckAttempts)
                         {
-                            //Wait 1 minute 
-                            Thread.Sleep(60000);
-                            if (attempts <= rebootCheckAttempts)
+                            try
                             {
-                                osManager.StartHostReadiness(host, ref row);
-                                lastReboot = DateTime.Parse(DgvUtils.GetRowValue(ref row, WUCollums.LastBoot).ToString());
-                                attempts++;
+                                lastReboot = osManager.GetLastBootDateTimeObject(host, ref row);
+                                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
+                                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, lastReboot.ToString("dd/MM/yyyy HH:mm"));
                             }
-                            else
+                            catch
                             {
-                                errorRebootMessage = $"Number of attempts has been reached";
-                                break;
+                                // returns a generic date just to keep the execution
+                                lastReboot = new DateTime(2000, 1, 1);
                             }
                         }
-                        catch
+                        else
                         {
-                            attempts++;
+                            errorRebootMessage = $"Number of attempts has been reached";
+                            break;
                         }
-                        finally
-                        {
-                            DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, $"Server is not online yet......number of attempts: {attempts}");
-                        }
+
+                        attempts++;
+
+                        DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, $"Host has not completed the reboot yet...(attempt: {attempts})");
+
                         // Check if the last boot time attribute
-                    } while ((DateTime.Now - lastReboot).TotalMinutes >= minutesRebootLastRebootCheck);
+                    } while ((int)(DateTime.Now - lastReboot).TotalMinutes >= minutesRebootLastRebootCheck);
 
                     // Stop the execution when it has reached the attempts limit 
                     if (!string.IsNullOrEmpty(errorRebootMessage))
@@ -773,6 +785,8 @@
                     DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Server Online");
 
                     pinger.BeginStop(row);
+
+                    osManager.BeginHostReadiness(host, row);
                 }
                 else
                 {
@@ -783,6 +797,8 @@
                 if (updatesInstalled != 0)
                 {
                     DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Count_Updates (3/4)");
+                    // Give more time to rpc services start
+                    Thread.Sleep(30000);
                     Act_CountUpdatesExecutor(row);
                     //On error it stops the batch
                     CheckBatchExecutionErrors(row);
@@ -798,6 +814,11 @@
             }
             finally
             {
+                isBatchExecution = false;
+                sw.Stop();
+                operResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults,
+                    string.Format("Duration: {0} min  {1}", (int)sw.Elapsed.Duration().TotalMinutes, operResult));
                 semaphore.Release();
                 this.Sys_RemoveThreadRow(ref row);
             }

@@ -82,15 +82,7 @@
             {
                 DgvUtils.SetRowValue(ref row, WUCollums.Status, "OS Connecting");
 
-                ManagementScope scope = new ManagementScope(string.Format(@"\\{0}\root\cimv2", host));
-                scope.Options.EnablePrivileges = true;
-                scope.Options.Timeout = TimeSpan.FromSeconds(10);
-
-                if (Credentials.IsAlternativeCredentialEnabled)
-                {
-                    scope.Options.Username = Credentials.UserName;
-                    scope.Options.Password = Credentials.Password;
-                }
+                ManagementScope scope = GetWmiManagementScope(host);
 
                 scope.Connect();
 
@@ -140,6 +132,15 @@
             }
         }
 
+        public DateTime GetLastBootDateTimeObject(string host, ref DataGridViewRow row)
+        {            
+            ManagementScope scope = GetWmiManagementScope(host);
+
+            scope.Connect();
+
+            return GetLasBoot(scope);
+        }
+
         public void StartHostReadiness(string host, ref DataGridViewRow row)
         {
             DateTime lastBootDate = DateTime.MinValue;
@@ -152,17 +153,8 @@
 
             try
             {
-                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Connecting");                
-
-                ManagementScope scope = new ManagementScope(string.Format(@"\\{0}\root\cimv2", host));
-                scope.Options.EnablePrivileges = true;
-                scope.Options.Timeout = TimeSpan.FromSeconds(10);
-
-                if (Credentials.IsAlternativeCredentialEnabled)
-                {
-                    scope.Options.Username = Credentials.UserName;
-                    scope.Options.Password = Credentials.Password;
-                }
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Connecting");
+                ManagementScope scope = GetWmiManagementScope(host);
 
                 scope.Connect();
 
@@ -183,6 +175,20 @@
             {
                 EndReadiness(ref row);
             }
+        }
+
+        private ManagementScope GetWmiManagementScope(string host)
+        {
+            ManagementScope scope = new ManagementScope(string.Format(@"\\{0}\root\cimv2", host));
+            scope.Options.EnablePrivileges = true;
+            scope.Options.Timeout = TimeSpan.FromSeconds(10);
+
+            if (Credentials.IsAlternativeCredentialEnabled)
+            {
+                scope.Options.Username = Credentials.UserName;
+                scope.Options.Password = Credentials.Password;
+            }
+            return scope;
         }
 
         private ServiceHostStatus GetAutomaticServiceStatus(ManagementScope scope)
@@ -281,7 +287,6 @@
     public class ServiceHostStatus
     {
         public int ServicesRunning { get; set; }
-
         public bool IsClustered { get; set; }
     }
 }
