@@ -491,7 +491,7 @@
             foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
                 string host = row.Cells["Host"].Value.ToString();
-                osManager.BeginHostReadiness(host, row);
+                osManager.BeginHostReadiness(host, row, chkBoxClusterResources.Checked);
             }
         }
 
@@ -506,6 +506,7 @@
 
         private void Act_InstallUpdateBatchInSelectedItens()
         {
+            // Add semaphore to control threads
             int threadCounter = (int)numUpDownTreads.Value == 0 ? 10000 : (int)numUpDownTreads.Value;
             if (semaphore == null)
                 semaphore = new Semaphore(threadCounter, 10000);
@@ -678,9 +679,10 @@
         {
             string batchWarningMessage = $"Warning: All the selected servers will be patched and rebooted automatically!" + Environment.NewLine +
                 $"Steps done during the Bath:" + Environment.NewLine +
-                $"1- Install Updates" + Environment.NewLine +
-                $"2- Reboot the host and wait it comes on line" + Environment.NewLine +
-                $"3- Count pending updates (Audit)" + Environment.NewLine +
+                $"1- Failover Cluster - only when checkbox is marked" + Environment.NewLine +
+                $"2- Install Updates" + Environment.NewLine +
+                $"3- Reboot the host and wait it comes on line" + Environment.NewLine +
+                $"4- Count pending updates (Audit)" + Environment.NewLine +
                 $"Do you really want to continue?";
             DialogResult dialogResult = MessageBox.Show(batchWarningMessage, "Confirmation", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -701,6 +703,7 @@
                     return;
                 }
             }
+
             Thread newThread = new Thread(Act_InstallUpdatesBatchExecutor);
 
             lock (threadList)
@@ -727,9 +730,22 @@
                 int minutesRebootLastRebootCheck = (int)numUpDownMinutesReboot.Value;
                 int rebootCheckAttempts = (int)numUpDownAttemptsNumber.Value;
 
+                // Failover Cluster Services
+                if (chkBoxCluster.Checked)
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Moving_ClusterResources (1/5)");
+                    osManager.StartHostReadiness(host, ref row, chkBoxClusterResources.Checked);
+                    bool isClustered = Convert.ToBoolean(DgvUtils.GetRowValue(ref row, WUCollums.Cluster));
+                    if (isClustered)
+                    {
+                        DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Executing remote powershell to move resources...");
+                        osManager.FailOverClusterNode(host);
+                    }
+                }                
+
                 // Install Updates
                 DgvUtils.SetRowStyleForeColor(ref row, WUCollums.Status, Color.Black);
-                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Inst_Updates (1/4)");
+                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Inst_Updates (2/5)");
 
                 Act_InstallUpdatesExecutor(row);
                 //On error it stops the batch
@@ -739,7 +755,7 @@
                 int updatesInstalled = Convert.ToInt32(DgvUtils.GetRowValue(ref row, WUCollums.Updates));
 
                 // Reboot                
-                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Rebooting (2/4)");
+                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Rebooting (3/5)");
                 if (isRebootRequired)
                 {
                     int attempts = 0;
@@ -786,7 +802,7 @@
 
                     pinger.BeginStop(row);
 
-                    osManager.BeginHostReadiness(host, row);
+                    osManager.StartHostReadiness(host, ref row, chkBoxClusterResources.Checked);
                 }
                 else
                 {
@@ -796,7 +812,7 @@
                 // Count Updates
                 if (updatesInstalled != 0)
                 {
-                    DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Count_Updates (3/4)");
+                    DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Count_Updates (4/5)");
                     // Give more time to rpc services start
                     Thread.Sleep(30000);
                     Act_CountUpdatesExecutor(row);
@@ -804,7 +820,7 @@
                     CheckBatchExecutionErrors(row);
                 }
 
-                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Finished (4/4)");
+                DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Finished (5/5)");
             }
             catch (Exception ex)
             {
@@ -826,16 +842,14 @@
 
         private void CheckBatchExecutionErrors(DataGridViewRow row)
         {
-            string batchStatus = DgvUtils.GetRowValue(ref row, WUCollums.Status).ToString();
-            string operationResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
-            if (string.Equals(batchStatus,
-                "ThreadError",
-                StringComparison.CurrentCultureIgnoreCase)
-                )
+            try
             {
-                throw new Exception($"BatchExecutionError: {operationResult}");
+                string batchStatus = DgvUtils.GetRowValue(ref row, WUCollums.Status).ToString();
+                string operationResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
+                if (string.Equals(batchStatus, "ThreadError", StringComparison.CurrentCultureIgnoreCase))
+                    throw new Exception($"BatchExecutionError: {operationResult}");
             }
+            catch { }
         }
-
     }
 }

@@ -41,14 +41,36 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="64512">
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Management.Infrastructure" version="1.0.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Management.Infrastructure.Native" version="1.0.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="amd64" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Management.Automation.dll" size="1613112">
+      <assemblyIdentity name="System.Management.Automation" version="3.0.0.0" publicKeyToken="31BF3856AD364E35" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>nOvSuC7pjYhu0y5jtALSKVQA2UhlL0pCkXG4keDZjhs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="68096">
       <assemblyIdentity name="WUManager" version="1.3.2.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>LKhq2FMcS+7hBTrGiGM1C2LX/6Ppvef4nG1DzTA2oQ0=</dsig:DigestValue>
+        <dsig:DigestValue>bSKejDBk3PlTrv9JTrQuWsFNZGhXVTsrEM5bsGl1/sI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,13 +83,13 @@
       <dsig:DigestValue>OwhTW0rdGU9WYeETHI6Brzc8oyLPZpZ0zxJyCV5cq5U=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="WUManager.exe.config" size="146">
+  <file name="WUManager.exe.config" size="143">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>JMvtKIQLp30uZFJiyh0tJG5cTuwYB7grbULE8nbLMfU=</dsig:DigestValue>
+      <dsig:DigestValue>8hDv76Des27wpKEa4Pt8nDjrJxrZ9n5+GHWNNs0FBlc=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

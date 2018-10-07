@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Windows.Forms;
     using System.Management;
     using System.Drawing;
@@ -10,6 +9,7 @@
 
     class OSManager
     {
+        private delegate void RowReadnessMethodDelegate(string host, ref DataGridViewRow row, bool checkActiveResource);
         private delegate void RowMethodDelegate(string host, ref DataGridViewRow row);
         private List<DataGridViewRow> listRebootRow;
         private List<DataGridViewRow> listReadinessRow;
@@ -40,18 +40,15 @@
             }
         }
 
-        public void BeginHostReadiness(string host, DataGridViewRow row)
+        public void BeginHostReadiness(string host, DataGridViewRow row, bool checkActiveResource)
         {
             lock (listReadinessRow)
             {
                 if (!listReadinessRow.Contains(row))
-                {
-                    DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);                    
-
+                {                    
                     listReadinessRow.Add(row);
-
-                    RowMethodDelegate de = new RowMethodDelegate(StartHostReadiness);
-                    de.BeginInvoke(host, ref row, null, null);
+                    RowReadnessMethodDelegate de = new RowReadnessMethodDelegate(StartHostReadiness);
+                    de.BeginInvoke(host, ref row, checkActiveResource, null, null);
                 }
             }
         }
@@ -83,8 +80,6 @@
                 DgvUtils.SetRowValue(ref row, WUCollums.Status, "OS Connecting");
 
                 ManagementScope scope = GetWmiManagementScope(host);
-
-                scope.Connect();
 
                 ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
                 using (ManagementObjectSearcher mos = new ManagementObjectSearcher(scope, query))
@@ -133,38 +128,44 @@
         }
 
         public DateTime GetLastBootDateTimeObject(string host, ref DataGridViewRow row)
-        {            
+        {
             ManagementScope scope = GetWmiManagementScope(host);
-
-            scope.Connect();
 
             return GetLasBoot(scope);
         }
 
-        public void StartHostReadiness(string host, ref DataGridViewRow row)
+        public void StartHostReadiness(string host, ref DataGridViewRow row, bool hasActiveResources)
         {
             DateTime lastBootDate = DateTime.MinValue;
             ServiceHostStatus automaticServicesStatus;
 
+            DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);
             DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
             DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
             DgvUtils.SetRowValue(ref row, WUCollums.ServicesRunning, string.Empty);
-            DgvUtils.SetRowValue(ref row, WUCollums.Cluster, false);            
+            DgvUtils.SetRowValue(ref row, WUCollums.Cluster, false);
 
             try
             {
                 DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, "OS Connecting");
                 ManagementScope scope = GetWmiManagementScope(host);
 
-                scope.Connect();
-
                 lastBootDate = GetLasBoot(scope);
                 automaticServicesStatus = GetAutomaticServiceStatus(scope);
-
                 DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, lastBootDate.ToString("dd/MM/yyyy HH:mm"));
                 DgvUtils.SetRowValue(ref row, WUCollums.Cluster, automaticServicesStatus.IsClustered);
                 DgvUtils.SetRowValue(ref row, WUCollums.ServicesRunning, automaticServicesStatus.ServicesRunning);
 
+                if (hasActiveResources && automaticServicesStatus.IsClustered)
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Executing remote powershell...");
+                    string fqdnHostName = $"{host}.{GetFqdnDomain(scope)}";
+                    using (PsManager ps = new PsManager(fqdnHostName))
+                    {
+                        int activeResourcesCount = ps.GetActiveClusterResources().Count;
+                        DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, $"Active clustered resources: {activeResourcesCount}");
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -174,6 +175,17 @@
             finally
             {
                 EndReadiness(ref row);
+            }
+        }
+
+        public void FailOverClusterNode(string host)
+        {
+            ManagementScope scope = GetWmiManagementScope(host);
+            string fqdnHostName = $"{host}.{GetFqdnDomain(scope)}";
+
+            using (PsManager ps = new PsManager(fqdnHostName))
+            {
+                ps.FailOverClusterNode();
             }
         }
 
@@ -188,6 +200,7 @@
                 scope.Options.Username = Credentials.UserName;
                 scope.Options.Password = Credentials.Password;
             }
+            scope.Connect();
             return scope;
         }
 
@@ -228,6 +241,19 @@
             {
                 return false;
             }
+        }
+
+        private string GetFqdnDomain(ManagementScope scope)
+        {
+            string fgdn = string.Empty;
+            ObjectQuery fqdn = new ObjectQuery("SELECT * FROM Win32_ComputerSystem");
+            ManagementObjectCollection wmiResults = GetWmiResults(scope, fqdn);
+            foreach (ManagementObject mo in wmiResults)
+            {
+                fgdn = mo["Domain"].ToString();
+            }
+
+            return fgdn;
         }
 
         private DateTime GetLasBoot(ManagementScope scope)

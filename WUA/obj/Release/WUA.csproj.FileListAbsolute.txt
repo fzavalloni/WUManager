@@ -53,3 +53,4 @@ C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUMa
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.csproj.CoreCompileInputs.cache
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.exe
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.pdb
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUA\obj\Release\WUA.csprojResolveAssemblyReference.cache

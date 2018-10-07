@@ -71,6 +71,10 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\System.Management.Automation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -100,6 +104,7 @@
     <Compile Include="Tools\ADManager.cs" />
     <Compile Include="Tools\Credentials.cs" />
     <Compile Include="Tools\OperSystemUtils.cs" />
+    <Compile Include="Tools\PsManager.cs" />
     <Compile Include="Tools\RegUtils.cs" />
     <EmbeddedResource Include="Controls\ProgressBar.resx">
       <DependentUpon>ProgressBar.cs</DependentUpon>
