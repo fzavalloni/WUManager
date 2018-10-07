@@ -9,7 +9,7 @@ have in your network the Wsus Server properly configured.
 # Requisites
 
 - All the servers must be members of Active Directory domain.(Only supports integrated authetication)
-- .Net 3.5 installed
+- .Net 4 or higher installed
 - Admin Share working (\\server\admin$)
 - RPC ports opened (it uses Psexec)
 
@@ -19,10 +19,10 @@ have in your network the Wsus Server properly configured.
 
 - Ping remote servers
 - Check if any server has pending boot
-- Check how many updates the server has to be installed
+- Check how many updates are pending to be installed
 - Check last boot, it helps to check if the machine rebooted and is UP
 - Start the patching process and reporting the percent of the process
-
+- Execute batchs, execute all the steps (Failover Clusters, Install Patch, Reboot the server and Audit) at once 
 
 
 
