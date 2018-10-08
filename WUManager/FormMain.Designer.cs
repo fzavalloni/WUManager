@@ -37,16 +37,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Host = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BatchStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastBoot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cluster = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ServicesRunning = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PingReply = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Updates = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RebootRequired = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.OperationResults = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.startPingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopPingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,6 +70,8 @@
             this.saveListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.grpBoxOptions = new System.Windows.Forms.GroupBox();
+            this.lblCluster = new System.Windows.Forms.Label();
+            this.chkBoxClusterResources = new System.Windows.Forms.CheckBox();
             this.chkBoxCluster = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.numUpDownTreads = new System.Windows.Forms.NumericUpDown();
@@ -99,8 +91,16 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.addHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFile = new System.Windows.Forms.SaveFileDialog();
-            this.chkBoxClusterResources = new System.Windows.Forms.CheckBox();
-            this.lblCluster = new System.Windows.Forms.Label();
+            this.Host = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BatchStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastBoot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cluster = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ServicesRunning = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PingReply = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Updates = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RebootRequired = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.OperationResults = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -134,7 +134,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.grpBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAddHosts);
             this.splitContainer1.Size = new System.Drawing.Size(1659, 560);
-            this.splitContainer1.SplitterDistance = 425;
+            this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -179,74 +179,8 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(1659, 397);
+            this.dataGridView.Size = new System.Drawing.Size(1659, 396);
             this.dataGridView.TabIndex = 2;
-            // 
-            // Host
-            // 
-            this.Host.HeaderText = "Host";
-            this.Host.Name = "Host";
-            // 
-            // BatchStep
-            // 
-            this.BatchStep.HeaderText = "Batch Step";
-            this.BatchStep.Name = "BatchStep";
-            this.BatchStep.ReadOnly = true;
-            this.BatchStep.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BatchStep.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BatchStep.Width = 120;
-            // 
-            // LastBoot
-            // 
-            this.LastBoot.HeaderText = "Last Boot";
-            this.LastBoot.Name = "LastBoot";
-            // 
-            // Cluster
-            // 
-            this.Cluster.HeaderText = "Clustered";
-            this.Cluster.Name = "Cluster";
-            this.Cluster.Width = 60;
-            // 
-            // ServicesRunning
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ServicesRunning.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ServicesRunning.HeaderText = "Services Running";
-            this.ServicesRunning.Name = "ServicesRunning";
-            this.ServicesRunning.Width = 60;
-            // 
-            // PingReply
-            // 
-            this.PingReply.HeaderText = "Ping Reply";
-            this.PingReply.Name = "PingReply";
-            this.PingReply.Width = 160;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.Width = 150;
-            // 
-            // Updates
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Updates.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Updates.HeaderText = "Updates";
-            this.Updates.Name = "Updates";
-            this.Updates.Width = 55;
-            // 
-            // RebootRequired
-            // 
-            this.RebootRequired.HeaderText = "Reboot";
-            this.RebootRequired.Name = "RebootRequired";
-            this.RebootRequired.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.RebootRequired.Width = 55;
-            // 
-            // OperationResults
-            // 
-            this.OperationResults.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.OperationResults.HeaderText = "Operation Results";
-            this.OperationResults.Name = "OperationResults";
             // 
             // contextMenuStrip1
             // 
@@ -506,10 +440,29 @@
             this.grpBoxOptions.Margin = new System.Windows.Forms.Padding(4);
             this.grpBoxOptions.Name = "grpBoxOptions";
             this.grpBoxOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.grpBoxOptions.Size = new System.Drawing.Size(582, 130);
+            this.grpBoxOptions.Size = new System.Drawing.Size(582, 131);
             this.grpBoxOptions.TabIndex = 2;
             this.grpBoxOptions.TabStop = false;
             this.grpBoxOptions.Text = "Batch Exection Options";
+            // 
+            // lblCluster
+            // 
+            this.lblCluster.AutoSize = true;
+            this.lblCluster.Location = new System.Drawing.Point(285, 12);
+            this.lblCluster.Name = "lblCluster";
+            this.lblCluster.Size = new System.Drawing.Size(270, 17);
+            this.lblCluster.TabIndex = 9;
+            this.lblCluster.Text = "Cluster Options(Requires PowerShell 3.0)";
+            // 
+            // chkBoxClusterResources
+            // 
+            this.chkBoxClusterResources.AutoSize = true;
+            this.chkBoxClusterResources.Location = new System.Drawing.Point(285, 57);
+            this.chkBoxClusterResources.Name = "chkBoxClusterResources";
+            this.chkBoxClusterResources.Size = new System.Drawing.Size(297, 21);
+            this.chkBoxClusterResources.TabIndex = 8;
+            this.chkBoxClusterResources.Text = "Check Active Resources (Host Readiness)";
+            this.chkBoxClusterResources.UseVisualStyleBackColor = true;
             // 
             // chkBoxCluster
             // 
@@ -652,24 +605,72 @@
             this.addHostsToolStripMenuItem.Name = "addHostsToolStripMenuItem";
             this.addHostsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // chkBoxClusterResources
+            // Host
             // 
-            this.chkBoxClusterResources.AutoSize = true;
-            this.chkBoxClusterResources.Location = new System.Drawing.Point(285, 57);
-            this.chkBoxClusterResources.Name = "chkBoxClusterResources";
-            this.chkBoxClusterResources.Size = new System.Drawing.Size(297, 21);
-            this.chkBoxClusterResources.TabIndex = 8;
-            this.chkBoxClusterResources.Text = "Check Active Resources (Host Readiness)";
-            this.chkBoxClusterResources.UseVisualStyleBackColor = true;
+            this.Host.HeaderText = "Host";
+            this.Host.Name = "Host";
+            this.Host.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // lblCluster
+            // BatchStep
             // 
-            this.lblCluster.AutoSize = true;
-            this.lblCluster.Location = new System.Drawing.Point(285, 12);
-            this.lblCluster.Name = "lblCluster";
-            this.lblCluster.Size = new System.Drawing.Size(270, 17);
-            this.lblCluster.TabIndex = 9;
-            this.lblCluster.Text = "Cluster Options(Requires PowerShell 3.0)";
+            this.BatchStep.HeaderText = "Batch Step";
+            this.BatchStep.Name = "BatchStep";
+            this.BatchStep.ReadOnly = true;
+            this.BatchStep.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BatchStep.Width = 120;
+            // 
+            // LastBoot
+            // 
+            this.LastBoot.HeaderText = "Last Boot";
+            this.LastBoot.Name = "LastBoot";
+            // 
+            // Cluster
+            // 
+            this.Cluster.HeaderText = "Clustered";
+            this.Cluster.Name = "Cluster";
+            this.Cluster.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Cluster.Width = 60;
+            // 
+            // ServicesRunning
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ServicesRunning.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ServicesRunning.HeaderText = "Services Running";
+            this.ServicesRunning.Name = "ServicesRunning";
+            this.ServicesRunning.Width = 60;
+            // 
+            // PingReply
+            // 
+            this.PingReply.HeaderText = "Ping Reply";
+            this.PingReply.Name = "PingReply";
+            this.PingReply.Width = 160;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.Width = 150;
+            // 
+            // Updates
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Updates.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Updates.HeaderText = "Updates";
+            this.Updates.Name = "Updates";
+            this.Updates.Width = 55;
+            // 
+            // RebootRequired
+            // 
+            this.RebootRequired.HeaderText = "Reboot";
+            this.RebootRequired.Name = "RebootRequired";
+            this.RebootRequired.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.RebootRequired.Width = 55;
+            // 
+            // OperationResults
+            // 
+            this.OperationResults.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.OperationResults.HeaderText = "Operation Results";
+            this.OperationResults.Name = "OperationResults";
             // 
             // FormMain
             // 
@@ -765,20 +766,19 @@
         private System.Windows.Forms.NumericUpDown numUpDownMinutesReboot;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numUpDownTreads;
+        private System.Windows.Forms.CheckBox chkBoxCluster;
+        private System.Windows.Forms.CheckBox chkBoxClusterResources;
+        private System.Windows.Forms.Label lblCluster;
         private System.Windows.Forms.DataGridViewTextBoxColumn Host;
         private System.Windows.Forms.DataGridViewTextBoxColumn BatchStep;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastBoot;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Cluster;
         private System.Windows.Forms.DataGridViewTextBoxColumn ServicesRunning;
         private System.Windows.Forms.DataGridViewTextBoxColumn PingReply;
-        //private ProgBar.DataGridViewProgressColumn Progress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Updates;
         private System.Windows.Forms.DataGridViewCheckBoxColumn RebootRequired;
         private System.Windows.Forms.DataGridViewTextBoxColumn OperationResults;
-        private System.Windows.Forms.CheckBox chkBoxCluster;
-        private System.Windows.Forms.CheckBox chkBoxClusterResources;
-        private System.Windows.Forms.Label lblCluster;
     }
 }
 
