@@ -97,6 +97,7 @@
             this.Cluster = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ServicesRunning = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PingReply = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Progress = new WUManager.ProgBar.DataGridViewProgressColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Updates = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RebootRequired = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -134,7 +135,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.grpBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAddHosts);
             this.splitContainer1.Size = new System.Drawing.Size(1659, 560);
-            this.splitContainer1.SplitterDistance = 424;
+            this.splitContainer1.SplitterDistance = 423;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -152,6 +153,7 @@
             this.Cluster,
             this.ServicesRunning,
             this.PingReply,
+            this.Progress,
             this.Status,
             this.Updates,
             this.RebootRequired,
@@ -179,7 +181,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(1659, 396);
+            this.dataGridView.Size = new System.Drawing.Size(1659, 395);
             this.dataGridView.TabIndex = 2;
             // 
             // contextMenuStrip1
@@ -440,7 +442,7 @@
             this.grpBoxOptions.Margin = new System.Windows.Forms.Padding(4);
             this.grpBoxOptions.Name = "grpBoxOptions";
             this.grpBoxOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.grpBoxOptions.Size = new System.Drawing.Size(582, 131);
+            this.grpBoxOptions.Size = new System.Drawing.Size(582, 132);
             this.grpBoxOptions.TabIndex = 2;
             this.grpBoxOptions.TabStop = false;
             this.grpBoxOptions.Text = "Batch Exection Options";
@@ -645,6 +647,11 @@
             this.PingReply.Name = "PingReply";
             this.PingReply.Width = 160;
             // 
+            // Progress
+            // 
+            this.Progress.HeaderText = "Progress";
+            this.Progress.Name = "Progress";
+            // 
             // Status
             // 
             this.Status.HeaderText = "Status";
@@ -775,6 +782,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Cluster;
         private System.Windows.Forms.DataGridViewTextBoxColumn ServicesRunning;
         private System.Windows.Forms.DataGridViewTextBoxColumn PingReply;
+        private ProgBar.DataGridViewProgressColumn Progress;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Updates;
         private System.Windows.Forms.DataGridViewCheckBoxColumn RebootRequired;
