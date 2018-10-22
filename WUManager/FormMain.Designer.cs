@@ -37,6 +37,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.Host = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BatchStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastBoot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cluster = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ServicesRunning = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PingReply = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Updates = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RebootRequired = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.OperationResults = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.startPingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopPingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,17 +101,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.addHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFile = new System.Windows.Forms.SaveFileDialog();
-            this.Host = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BatchStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastBoot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cluster = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ServicesRunning = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PingReply = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewProgressColumn1 = new WUManager.ProgBar.DataGridViewProgressColumn();
             this.Progress = new WUManager.ProgBar.DataGridViewProgressColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Updates = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RebootRequired = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.OperationResults = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -135,7 +136,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.grpBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAddHosts);
             this.splitContainer1.Size = new System.Drawing.Size(1659, 560);
-            this.splitContainer1.SplitterDistance = 423;
+            this.splitContainer1.SplitterDistance = 422;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -181,8 +182,75 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(1659, 395);
+            this.dataGridView.Size = new System.Drawing.Size(1659, 394);
             this.dataGridView.TabIndex = 2;
+            // 
+            // Host
+            // 
+            this.Host.HeaderText = "Host";
+            this.Host.Name = "Host";
+            this.Host.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // BatchStep
+            // 
+            this.BatchStep.HeaderText = "Batch Step";
+            this.BatchStep.Name = "BatchStep";
+            this.BatchStep.ReadOnly = true;
+            this.BatchStep.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BatchStep.Width = 120;
+            // 
+            // LastBoot
+            // 
+            this.LastBoot.HeaderText = "Last Boot";
+            this.LastBoot.Name = "LastBoot";
+            // 
+            // Cluster
+            // 
+            this.Cluster.HeaderText = "Clustered";
+            this.Cluster.Name = "Cluster";
+            this.Cluster.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Cluster.Width = 60;
+            // 
+            // ServicesRunning
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ServicesRunning.DefaultCellStyle = dataGridViewCellStyle1;
+            this.ServicesRunning.HeaderText = "Services Running";
+            this.ServicesRunning.Name = "ServicesRunning";
+            this.ServicesRunning.Width = 60;
+            // 
+            // PingReply
+            // 
+            this.PingReply.HeaderText = "Ping Reply";
+            this.PingReply.Name = "PingReply";
+            this.PingReply.Width = 160;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.Width = 150;
+            // 
+            // Updates
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Updates.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Updates.HeaderText = "Updates";
+            this.Updates.Name = "Updates";
+            this.Updates.Width = 55;
+            // 
+            // RebootRequired
+            // 
+            this.RebootRequired.HeaderText = "Reboot";
+            this.RebootRequired.Name = "RebootRequired";
+            this.RebootRequired.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.RebootRequired.Width = 55;
+            // 
+            // OperationResults
+            // 
+            this.OperationResults.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.OperationResults.HeaderText = "Operation Results";
+            this.OperationResults.Name = "OperationResults";
             // 
             // contextMenuStrip1
             // 
@@ -442,7 +510,7 @@
             this.grpBoxOptions.Margin = new System.Windows.Forms.Padding(4);
             this.grpBoxOptions.Name = "grpBoxOptions";
             this.grpBoxOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.grpBoxOptions.Size = new System.Drawing.Size(582, 132);
+            this.grpBoxOptions.Size = new System.Drawing.Size(582, 133);
             this.grpBoxOptions.TabIndex = 2;
             this.grpBoxOptions.TabStop = false;
             this.grpBoxOptions.Text = "Batch Exection Options";
@@ -595,10 +663,10 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 538);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 536);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1659, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1659, 24);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -607,77 +675,15 @@
             this.addHostsToolStripMenuItem.Name = "addHostsToolStripMenuItem";
             this.addHostsToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // Host
+            // dataGridViewProgressColumn1
             // 
-            this.Host.HeaderText = "Host";
-            this.Host.Name = "Host";
-            this.Host.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // BatchStep
-            // 
-            this.BatchStep.HeaderText = "Batch Step";
-            this.BatchStep.Name = "BatchStep";
-            this.BatchStep.ReadOnly = true;
-            this.BatchStep.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BatchStep.Width = 120;
-            // 
-            // LastBoot
-            // 
-            this.LastBoot.HeaderText = "Last Boot";
-            this.LastBoot.Name = "LastBoot";
-            // 
-            // Cluster
-            // 
-            this.Cluster.HeaderText = "Clustered";
-            this.Cluster.Name = "Cluster";
-            this.Cluster.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Cluster.Width = 60;
-            // 
-            // ServicesRunning
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ServicesRunning.DefaultCellStyle = dataGridViewCellStyle1;
-            this.ServicesRunning.HeaderText = "Services Running";
-            this.ServicesRunning.Name = "ServicesRunning";
-            this.ServicesRunning.Width = 60;
-            // 
-            // PingReply
-            // 
-            this.PingReply.HeaderText = "Ping Reply";
-            this.PingReply.Name = "PingReply";
-            this.PingReply.Width = 160;
+            this.dataGridViewProgressColumn1.HeaderText = "Progress";
+            this.dataGridViewProgressColumn1.Name = "dataGridViewProgressColumn1";
             // 
             // Progress
             // 
             this.Progress.HeaderText = "Progress";
             this.Progress.Name = "Progress";
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.Width = 150;
-            // 
-            // Updates
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Updates.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Updates.HeaderText = "Updates";
-            this.Updates.Name = "Updates";
-            this.Updates.Width = 55;
-            // 
-            // RebootRequired
-            // 
-            this.RebootRequired.HeaderText = "Reboot";
-            this.RebootRequired.Name = "RebootRequired";
-            this.RebootRequired.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.RebootRequired.Width = 55;
-            // 
-            // OperationResults
-            // 
-            this.OperationResults.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.OperationResults.HeaderText = "Operation Results";
-            this.OperationResults.Name = "OperationResults";
             // 
             // FormMain
             // 
@@ -689,7 +695,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WUManager - v1.6";
+            this.Text = "WUManager - v1.7";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -787,6 +793,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Updates;
         private System.Windows.Forms.DataGridViewCheckBoxColumn RebootRequired;
         private System.Windows.Forms.DataGridViewTextBoxColumn OperationResults;
+        private ProgBar.DataGridViewProgressColumn dataGridViewProgressColumn1;
     }
 }
 

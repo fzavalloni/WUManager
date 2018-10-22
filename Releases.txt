@@ -34,3 +34,6 @@ WuManager 1.5 - Added Install Updates on Batch mode
 
 =======07/10/2018
 WuManager 1.6 - Added options to Check active clustered resources and Failover them prior patching
+
+=======22/10/2018
+WUManager 1.7 - Added option to schedule execution Batch

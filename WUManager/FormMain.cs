@@ -13,6 +13,7 @@
     delegate void DataGridViewAddRowDelegate(string host);
     delegate void DataGridViewAddRowsDelegate(string[] hosts);
     delegate void DataGridViewRowDelegate(DataGridViewRow row);
+    delegate void DataGridViewBatchRowDelegate(DataGridViewRow row, DateTime executionTime);
 
     public partial class FormMain : Form
     {
@@ -504,19 +505,24 @@
             }
         }
 
-        private void Act_InstallUpdateBatchInSelectedItens()
+        public void Act_InstallUpdateBatchInSelectedItens(DateTime executionTime)
         {
             // Add semaphore to control threads
-            int threadCounter = (int)numUpDownTreads.Value == 0 ? 10000 : (int)numUpDownTreads.Value;
-            if (semaphore == null)
-                semaphore = new Semaphore(threadCounter, 10000);
+            CreateSemaphore();
 
-            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_InstallUpdatesBatch);
+            DataGridViewBatchRowDelegate de = new DataGridViewBatchRowDelegate(Act_InstallUpdatesBatch);
 
             foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
             {
-                de.BeginInvoke(row, null, null);
+                de.BeginInvoke(row, executionTime, null, null);
             }
+        }
+
+        private void CreateSemaphore()
+        {
+            int threadCounter = (int)numUpDownTreads.Value == 0 ? 10000 : (int)numUpDownTreads.Value;
+            if (semaphore == null)
+                semaphore = new Semaphore(threadCounter, 10000);
         }
 
         private void Act_StopThreadAndReboot(DataGridViewRow row)
@@ -677,22 +683,28 @@
 
         private void InstallUpdatesBatchingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string batchWarningMessage = $"Warning: All the selected servers will be patched and rebooted automatically!" + Environment.NewLine +
-                $"Steps done during the Bath:" + Environment.NewLine +
-                $"1- Failover Cluster - only when checkbox is marked" + Environment.NewLine +
-                $"2- Install Updates" + Environment.NewLine +
-                $"3- Reboot the host and wait it comes on line" + Environment.NewLine +
-                $"4- Count pending updates (Audit)" + Environment.NewLine +
-                $"Do you really want to continue?";
-            DialogResult dialogResult = MessageBox.Show(batchWarningMessage, "Confirmation", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                this.Act_InstallUpdateBatchInSelectedItens();
-            }
+            FormStartBatch form = new FormStartBatch(this);
+            form.ShowDialog();
         }
 
-        private void Act_InstallUpdatesBatch(DataGridViewRow row)
+        private void Act_InstallUpdatesBatch(DataGridViewRow row, DateTime executionTime)
         {
+            // Waiting execution schedule
+            bool isBackgroundSet = false;
+            do
+            {
+                if (!isBackgroundSet)
+                {
+                    row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    row.DefaultCellStyle.SelectionBackColor = Color.Green;
+
+                    DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, $"Waiting");
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, $"Execution Scheduled for: {executionTime.ToString("hh:mm tt - dd/MM/yy")}");
+                    isBackgroundSet = true;
+                }
+                Thread.Sleep(30000);
+            } while (executionTime >= DateTime.Now);
+
             DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Waiting thread");
             semaphore.WaitOne();
 
@@ -741,7 +753,7 @@
                         DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Executing remote powershell to move resources...");
                         osManager.FailOverClusterNode(host);
                     }
-                }                
+                }
 
                 // Install Updates
                 DgvUtils.SetRowStyleForeColor(ref row, WUCollums.Status, Color.Black);
