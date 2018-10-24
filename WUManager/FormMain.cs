@@ -826,7 +826,7 @@
                 {
                     DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Count_Updates (4/5)");
                     // Give more time to rpc services start
-                    Thread.Sleep(30000);
+                    Thread.Sleep(40000);
                     Act_CountUpdatesExecutor(row);
                     //On error it stops the batch
                     CheckBatchExecutionErrors(row);
