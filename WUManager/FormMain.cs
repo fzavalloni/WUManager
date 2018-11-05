@@ -689,7 +689,7 @@
 
         private void Act_InstallUpdatesBatch(DataGridViewRow row, DateTime executionTime)
         {
-            // Waiting execution schedule
+            // Waiting execution schedule            
             bool isBackgroundSet = false;
             do
             {
@@ -702,8 +702,12 @@
                     DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, $"Execution Scheduled for: {executionTime.ToString("hh:mm tt - dd/MM/yy")}");
                     isBackgroundSet = true;
                 }
-                Thread.Sleep(30000);
-            } while (executionTime >= DateTime.Now);
+                else
+                {
+                    // Add waiting thread to avoid high CPU consuption
+                    Thread.Sleep(30000);
+                }
+            } while (executionTime > DateTime.Now);
 
             DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Waiting thread");
             semaphore.WaitOne();
