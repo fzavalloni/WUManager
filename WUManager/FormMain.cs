@@ -710,6 +710,8 @@
             } while (executionTime > DateTime.Now);
 
             DgvUtils.SetRowValue(ref row, WUCollums.BatchStep, "Waiting thread");
+            DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
+
             semaphore.WaitOne();
 
             lock (threadList)
@@ -850,8 +852,13 @@
                 sw.Stop();
                 operResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults,
-                    string.Format("Duration: {0} min  {1}", (int)sw.Elapsed.Duration().TotalMinutes, operResult));
-                semaphore.Release();
+                string.Format("Duration: {0} min  {1}", (int)sw.Elapsed.Duration().TotalMinutes, operResult));
+                
+                if(semaphore.Release() == (int)numUpDownTreads.Value)
+                {
+                    semaphore.Dispose();
+                }
+
                 this.Sys_RemoveThreadRow(ref row);
             }
         }

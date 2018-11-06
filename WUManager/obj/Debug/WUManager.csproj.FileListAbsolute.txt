@@ -99,3 +99,4 @@ C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUMa
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.exe
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.pdb
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.csprojResolveAssemblyReference.cache
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.FormStartBatch.resources
