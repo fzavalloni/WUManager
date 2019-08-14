@@ -189,14 +189,14 @@
                         //WUA_NoApplicableUpdates
 
                         DgvUtils.SetRowValue(ref row, WUCollums.Status, "WU No Applicable Updates");
-                        DgvUtils.SetRowValue(ref row, WUCollums.Updates, 0);
+                        DgvUtils.SetRowValue(ref row, WUCollums.Updates, "0");
                         break;
                     }
                 case WUAOperations.WUA_UpdateItem:
                     {
                         //WUA_UpdateItem:N|Title
 
-                        DgvUtils.SetRowValue(ref row, WUCollums.Updates, Convert.ToInt32(parameters[0]));
+                        DgvUtils.SetRowValue(ref row, WUCollums.Updates, parameters[0]);
                         break;
                     }
                 case WUAOperations.WUA_DownloadingStarted:
@@ -356,16 +356,14 @@
 
         private void Sys_RemoveThreadRow(ref DataGridViewRow row)
         {
-            if (!isBatchExecution)
+            lock (threadList)
             {
-                lock (threadList)
+                if (threadList.ContainsKey(row))
                 {
-                    if (threadList.ContainsKey(row))
-                    {
-                        threadList.Remove(row);
-                    }
+                    threadList.Remove(row);
                 }
             }
+
         }
 
         private void Act_RemoveSelectedItens()
@@ -734,8 +732,7 @@
         }
 
         private void Act_InstallUpdatesBatchExecutor(object rowObject)
-        {
-            isBatchExecution = true;
+        {            
             bool isRebootRequired = false;
             DateTime lastReboot = new DateTime();
             DataGridViewRow row = (DataGridViewRow)rowObject;
@@ -847,14 +844,13 @@
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, ex.Message);
             }
             finally
-            {
-                isBatchExecution = false;
+            {                
                 sw.Stop();
                 operResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults,
                 string.Format("Duration: {0} min  {1}", (int)sw.Elapsed.Duration().TotalMinutes, operResult));
-                
-                if(semaphore.Release() == (int)numUpDownTreads.Value)
+
+                if (semaphore.Release() == (int)numUpDownTreads.Value)
                 {
                     semaphore.Dispose();
                 }

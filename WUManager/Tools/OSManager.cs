@@ -154,7 +154,8 @@
                 automaticServicesStatus = GetAutomaticServiceStatus(scope);
                 DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, lastBootDate.ToString("dd/MM/yyyy HH:mm"));
                 DgvUtils.SetRowValue(ref row, WUCollums.Cluster, automaticServicesStatus.IsClustered);
-                DgvUtils.SetRowValue(ref row, WUCollums.ServicesRunning, automaticServicesStatus.ServicesRunning);
+                // Added as string to not broke the ordering in the Datagridview
+                DgvUtils.SetRowValue(ref row, WUCollums.ServicesRunning, automaticServicesStatus.ServicesRunning.ToString());
 
                 if (hasActiveResources && automaticServicesStatus.IsClustered)
                 {
