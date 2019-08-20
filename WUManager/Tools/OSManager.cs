@@ -161,10 +161,19 @@
                 {
                     DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Executing remote powershell...");
                     string fqdnHostName = $"{host}.{GetFqdnDomain(scope)}";
+                    string resultOutput = string.Empty;
+                    int activeResourcesCount = 0;                    
+
                     using (PsManager ps = new PsManager(fqdnHostName))
                     {
-                        int activeResourcesCount = ps.GetActiveClusterResources().Count;
-                        DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, $"Active clustered resources: {activeResourcesCount}");
+                        activeResourcesCount = ps.GetActiveClusterResources().Count;
+                        resultOutput = $"Clustered resources qty: [{activeResourcesCount}]";
+                        if (activeResourcesCount != 0)
+                        {                            
+                            resultOutput = $"{resultOutput} - Resource Names: [{string.Join(", ", ps.GetActiveClusterResources().ToArray())}]";
+                        }
+                        
+                        DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, resultOutput);
                     }
                 }
             }

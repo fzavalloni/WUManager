@@ -20,8 +20,7 @@
         private Dictionary<DataGridViewRow, Thread> threadList;
         private Tools.Pinger pinger;
         private Tools.OSManager osManager;
-        static Semaphore semaphore;
-        private bool isBatchExecution = false;
+        static Semaphore semaphore;        
 
         public FormMain()
         {
@@ -363,7 +362,6 @@
                     threadList.Remove(row);
                 }
             }
-
         }
 
         private void Act_RemoveSelectedItens()
