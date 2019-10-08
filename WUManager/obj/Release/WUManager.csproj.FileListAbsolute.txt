@@ -123,3 +123,4 @@ C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUMa
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Release\WUManager.exe
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Release\WUManager.pdb
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Release\WUManager.csproj.CopyComplete
+C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Release\WUManager.csprojAssemblyReference.cache

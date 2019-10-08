@@ -136,7 +136,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.grpBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAddHosts);
             this.splitContainer1.Size = new System.Drawing.Size(1659, 560);
-            this.splitContainer1.SplitterDistance = 419;
+            this.splitContainer1.SplitterDistance = 418;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -182,7 +182,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(1659, 391);
+            this.dataGridView.Size = new System.Drawing.Size(1659, 390);
             this.dataGridView.TabIndex = 2;
             // 
             // Host
@@ -514,7 +514,7 @@
             this.grpBoxOptions.Margin = new System.Windows.Forms.Padding(4);
             this.grpBoxOptions.Name = "grpBoxOptions";
             this.grpBoxOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.grpBoxOptions.Size = new System.Drawing.Size(582, 136);
+            this.grpBoxOptions.Size = new System.Drawing.Size(582, 137);
             this.grpBoxOptions.TabIndex = 2;
             this.grpBoxOptions.TabStop = false;
             this.grpBoxOptions.Text = "Batch Exection Options";
@@ -694,7 +694,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WUManager - v1.9";
+            this.Text = "WUManager - v1.10";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

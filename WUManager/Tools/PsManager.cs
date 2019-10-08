@@ -15,6 +15,7 @@ namespace WUManager.Tools
         {
             this.hostname = fqdnHostname;
             this.runspace = RunspaceFactory.CreateRunspace(GetRemoteConnectionInfo(this.hostname));
+            
             runspace.Open();
         }
 
@@ -58,7 +59,8 @@ namespace WUManager.Tools
         {
             return new WSManConnectionInfo
             {
-                ComputerName = host
+                ComputerName = host,
+                AuthenticationMechanism = AuthenticationMechanism.Negotiate
             };
         }
     }
