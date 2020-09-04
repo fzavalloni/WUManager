@@ -55,6 +55,8 @@
             this.getLastBootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkRebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.countUpdatesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportUpdatesToWsusMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetAuthorizationOnWsus = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.installUpdatesBatchingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,7 +124,6 @@
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -135,9 +136,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.grpBoxOptions);
             this.splitContainer1.Panel2.Controls.Add(this.cmdAddHosts);
-            this.splitContainer1.Size = new System.Drawing.Size(1659, 560);
-            this.splitContainer1.SplitterDistance = 417;
-            this.splitContainer1.SplitterWidth = 5;
+            this.splitContainer1.Size = new System.Drawing.Size(1244, 455);
+            this.splitContainer1.SplitterDistance = 312;
             this.splitContainer1.TabIndex = 1;
             // 
             // dataGridView
@@ -170,8 +170,7 @@
             this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView.Location = new System.Drawing.Point(0, 28);
-            this.dataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView.Location = new System.Drawing.Point(0, 24);
             this.dataGridView.Name = "dataGridView";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
@@ -182,7 +181,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(1659, 389);
+            this.dataGridView.Size = new System.Drawing.Size(1244, 288);
             this.dataGridView.TabIndex = 2;
             // 
             // Host
@@ -266,6 +265,8 @@
             this.getLastBootToolStripMenuItem,
             this.checkRebootToolStripMenuItem,
             this.countUpdatesToolStripMenuItem1,
+            this.reportUpdatesToWsusMenuItem,
+            this.resetAuthorizationOnWsus,
             this.toolStripSeparator4,
             this.installUpdatesBatchingToolStripMenuItem,
             this.installUpdatesToolStripMenuItem,
@@ -274,88 +275,102 @@
             this.toolStripSeparator7,
             this.removeItensToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(228, 244);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(292, 292);
             // 
             // startPingToolStripMenuItem
             // 
             this.startPingToolStripMenuItem.Name = "startPingToolStripMenuItem";
-            this.startPingToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
+            this.startPingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.startPingToolStripMenuItem.Text = "Start Ping";
             this.startPingToolStripMenuItem.Click += new System.EventHandler(this.StartPingToolStripMenuItem_Click);
             // 
             // stopPingToolStripMenuItem
             // 
             this.stopPingToolStripMenuItem.Name = "stopPingToolStripMenuItem";
-            this.stopPingToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
+            this.stopPingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.stopPingToolStripMenuItem.Text = "Stop Ping";
             this.stopPingToolStripMenuItem.Click += new System.EventHandler(this.RtopPingToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(288, 6);
             // 
             // getLastBootToolStripMenuItem
             // 
             this.getLastBootToolStripMenuItem.Name = "getLastBootToolStripMenuItem";
-            this.getLastBootToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
-            this.getLastBootToolStripMenuItem.Text = "Get Host Readiness";
+            this.getLastBootToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.getLastBootToolStripMenuItem.Text = "Get Last Boot Date";
             this.getLastBootToolStripMenuItem.Click += new System.EventHandler(this.GetLastBootToolStripMenuItem_Click);
             // 
             // checkRebootToolStripMenuItem
             // 
             this.checkRebootToolStripMenuItem.Name = "checkRebootToolStripMenuItem";
-            this.checkRebootToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
+            this.checkRebootToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.checkRebootToolStripMenuItem.Text = "Check Pending Reboot";
             this.checkRebootToolStripMenuItem.Click += new System.EventHandler(this.CheckRebootToolStripMenuItem_Click);
             // 
             // countUpdatesToolStripMenuItem1
             // 
             this.countUpdatesToolStripMenuItem1.Name = "countUpdatesToolStripMenuItem1";
-            this.countUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(227, 24);
+            this.countUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(291, 22);
             this.countUpdatesToolStripMenuItem1.Text = "Count Updates (Audit)";
             this.countUpdatesToolStripMenuItem1.Click += new System.EventHandler(this.CountUpdatesToolStripMenuItem1_Click);
+            // 
+            // reportUpdatesToWsusMenuItem
+            // 
+            this.reportUpdatesToWsusMenuItem.Name = "reportUpdatesToWsusMenuItem";
+            this.reportUpdatesToWsusMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.reportUpdatesToWsusMenuItem.Text = "Wsus - Report Updates Now";
+            this.reportUpdatesToWsusMenuItem.Click += new System.EventHandler(this.ReportUpdatesToWsusMenuItem_Click);
+            // 
+            // resetAuthorizationOnWsus
+            // 
+            this.resetAuthorizationOnWsus.Name = "resetAuthorizationOnWsus";
+            this.resetAuthorizationOnWsus.Size = new System.Drawing.Size(291, 22);
+            this.resetAuthorizationOnWsus.Text = "Wsus - Reset Authorization && DetectNow";
+            this.resetAuthorizationOnWsus.Click += new System.EventHandler(this.ResetAuthorizationOnWsusMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(288, 6);
             // 
             // installUpdatesBatchingToolStripMenuItem
             // 
             this.installUpdatesBatchingToolStripMenuItem.Name = "installUpdatesBatchingToolStripMenuItem";
-            this.installUpdatesBatchingToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
+            this.installUpdatesBatchingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.installUpdatesBatchingToolStripMenuItem.Text = "Install Updates - Batch";
             this.installUpdatesBatchingToolStripMenuItem.Click += new System.EventHandler(this.InstallUpdatesBatchingToolStripMenuItem_Click);
             // 
             // installUpdatesToolStripMenuItem
             // 
             this.installUpdatesToolStripMenuItem.Name = "installUpdatesToolStripMenuItem";
-            this.installUpdatesToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
+            this.installUpdatesToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.installUpdatesToolStripMenuItem.Text = "Install Updates";
             this.installUpdatesToolStripMenuItem.Click += new System.EventHandler(this.InstallUpdatesContextToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(288, 6);
             // 
             // rebootToolStripMenuItem1
             // 
             this.rebootToolStripMenuItem1.Name = "rebootToolStripMenuItem1";
-            this.rebootToolStripMenuItem1.Size = new System.Drawing.Size(227, 24);
+            this.rebootToolStripMenuItem1.Size = new System.Drawing.Size(291, 22);
             this.rebootToolStripMenuItem1.Text = "Reboot";
             this.rebootToolStripMenuItem1.Click += new System.EventHandler(this.RebootToolStripMenuItem1_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(288, 6);
             // 
             // removeItensToolStripMenuItem
             // 
             this.removeItensToolStripMenuItem.Name = "removeItensToolStripMenuItem";
-            this.removeItensToolStripMenuItem.Size = new System.Drawing.Size(227, 24);
+            this.removeItensToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
             this.removeItensToolStripMenuItem.Text = "Remove Itens";
             this.removeItensToolStripMenuItem.Click += new System.EventHandler(this.RemoveContextToolStripMenuItem_Click);
             // 
@@ -366,8 +381,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1659, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1244, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -379,13 +393,13 @@
             this.saveListToolStripMenuItem,
             this.exitToolStripMenuItem1});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(58, 24);
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
@@ -405,96 +419,96 @@
             this.toolStripSeparator5,
             this.removeItensToolStripMenuItem1});
             this.actionsToolStripMenuItem1.Name = "actionsToolStripMenuItem1";
-            this.actionsToolStripMenuItem1.Size = new System.Drawing.Size(176, 26);
+            this.actionsToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.actionsToolStripMenuItem1.Text = "Actions";
             // 
             // startPingToolStripMenuItem1
             // 
             this.startPingToolStripMenuItem1.Name = "startPingToolStripMenuItem1";
-            this.startPingToolStripMenuItem1.Size = new System.Drawing.Size(233, 26);
+            this.startPingToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.startPingToolStripMenuItem1.Text = "Start Ping";
             this.startPingToolStripMenuItem1.Click += new System.EventHandler(this.StartPingToolStripMenuItem1_Click);
             // 
             // stopPingToolStripMenuItem1
             // 
             this.stopPingToolStripMenuItem1.Name = "stopPingToolStripMenuItem1";
-            this.stopPingToolStripMenuItem1.Size = new System.Drawing.Size(233, 26);
+            this.stopPingToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.stopPingToolStripMenuItem1.Text = "Stop Ping";
             this.stopPingToolStripMenuItem1.Click += new System.EventHandler(this.StopPingToolStripMenuItem1_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(230, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(192, 6);
             // 
             // getLastBootToolStripMenuItem1
             // 
             this.getLastBootToolStripMenuItem1.Name = "getLastBootToolStripMenuItem1";
-            this.getLastBootToolStripMenuItem1.Size = new System.Drawing.Size(233, 26);
+            this.getLastBootToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.getLastBootToolStripMenuItem1.Text = "Get Last Boot";
             this.getLastBootToolStripMenuItem1.Click += new System.EventHandler(this.GetLastBootToolStripMenuItem1_Click);
             // 
             // checkRebootToolStripMenuItem1
             // 
             this.checkRebootToolStripMenuItem1.Name = "checkRebootToolStripMenuItem1";
-            this.checkRebootToolStripMenuItem1.Size = new System.Drawing.Size(233, 26);
+            this.checkRebootToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.checkRebootToolStripMenuItem1.Text = "Check Pending Reboot";
             this.checkRebootToolStripMenuItem1.Click += new System.EventHandler(this.CheckRebootToolStripMenuItem1_Click);
             // 
             // countUpdatesToolStripMenuItem
             // 
             this.countUpdatesToolStripMenuItem.Name = "countUpdatesToolStripMenuItem";
-            this.countUpdatesToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
+            this.countUpdatesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.countUpdatesToolStripMenuItem.Text = "Count Updates";
             this.countUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CountUpdatesToolStripMenuItem_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(230, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(192, 6);
             // 
             // installUpdatesToolStripMenuItem1
             // 
             this.installUpdatesToolStripMenuItem1.Name = "installUpdatesToolStripMenuItem1";
-            this.installUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(233, 26);
+            this.installUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.installUpdatesToolStripMenuItem1.Text = "Install Updates";
             this.installUpdatesToolStripMenuItem1.Click += new System.EventHandler(this.InstallUpdatesToolStripMenuItem1_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(230, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(192, 6);
             // 
             // rebootToolStripMenuItem2
             // 
             this.rebootToolStripMenuItem2.Name = "rebootToolStripMenuItem2";
-            this.rebootToolStripMenuItem2.Size = new System.Drawing.Size(233, 26);
+            this.rebootToolStripMenuItem2.Size = new System.Drawing.Size(195, 22);
             this.rebootToolStripMenuItem2.Text = "Reboot";
             this.rebootToolStripMenuItem2.Click += new System.EventHandler(this.RebootToolStripMenuItem2_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(230, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(192, 6);
             // 
             // removeItensToolStripMenuItem1
             // 
             this.removeItensToolStripMenuItem1.Name = "removeItensToolStripMenuItem1";
-            this.removeItensToolStripMenuItem1.Size = new System.Drawing.Size(233, 26);
+            this.removeItensToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.removeItensToolStripMenuItem1.Text = "Remove Itens";
             this.removeItensToolStripMenuItem1.Click += new System.EventHandler(this.RemoveItensToolStripMenuItem_Click);
             // 
             // saveListToolStripMenuItem
             // 
             this.saveListToolStripMenuItem.Name = "saveListToolStripMenuItem";
-            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(176, 26);
+            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.saveListToolStripMenuItem.Text = "Save hosts list";
             this.saveListToolStripMenuItem.Click += new System.EventHandler(this.SaveListToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(176, 26);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
             // 
@@ -510,11 +524,9 @@
             this.grpBoxOptions.Controls.Add(this.label2);
             this.grpBoxOptions.Controls.Add(this.label1);
             this.grpBoxOptions.Dock = System.Windows.Forms.DockStyle.Right;
-            this.grpBoxOptions.Location = new System.Drawing.Point(1077, 0);
-            this.grpBoxOptions.Margin = new System.Windows.Forms.Padding(4);
+            this.grpBoxOptions.Location = new System.Drawing.Point(808, 0);
             this.grpBoxOptions.Name = "grpBoxOptions";
-            this.grpBoxOptions.Padding = new System.Windows.Forms.Padding(4);
-            this.grpBoxOptions.Size = new System.Drawing.Size(582, 138);
+            this.grpBoxOptions.Size = new System.Drawing.Size(436, 139);
             this.grpBoxOptions.TabIndex = 2;
             this.grpBoxOptions.TabStop = false;
             this.grpBoxOptions.Text = "Batch Exection Options";
@@ -522,18 +534,20 @@
             // lblCluster
             // 
             this.lblCluster.AutoSize = true;
-            this.lblCluster.Location = new System.Drawing.Point(285, 12);
+            this.lblCluster.Location = new System.Drawing.Point(214, 10);
+            this.lblCluster.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCluster.Name = "lblCluster";
-            this.lblCluster.Size = new System.Drawing.Size(270, 17);
+            this.lblCluster.Size = new System.Drawing.Size(200, 13);
             this.lblCluster.TabIndex = 9;
             this.lblCluster.Text = "Cluster Options(Requires PowerShell 3.0)";
             // 
             // chkBoxClusterResources
             // 
             this.chkBoxClusterResources.AutoSize = true;
-            this.chkBoxClusterResources.Location = new System.Drawing.Point(285, 57);
+            this.chkBoxClusterResources.Location = new System.Drawing.Point(214, 46);
+            this.chkBoxClusterResources.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxClusterResources.Name = "chkBoxClusterResources";
-            this.chkBoxClusterResources.Size = new System.Drawing.Size(297, 21);
+            this.chkBoxClusterResources.Size = new System.Drawing.Size(228, 17);
             this.chkBoxClusterResources.TabIndex = 8;
             this.chkBoxClusterResources.Text = "Check Active Resources (Host Readiness)";
             this.chkBoxClusterResources.UseVisualStyleBackColor = true;
@@ -541,9 +555,10 @@
             // chkBoxCluster
             // 
             this.chkBoxCluster.AutoSize = true;
-            this.chkBoxCluster.Location = new System.Drawing.Point(285, 33);
+            this.chkBoxCluster.Location = new System.Drawing.Point(214, 27);
+            this.chkBoxCluster.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxCluster.Name = "chkBoxCluster";
-            this.chkBoxCluster.Size = new System.Drawing.Size(219, 21);
+            this.chkBoxCluster.Size = new System.Drawing.Size(165, 17);
             this.chkBoxCluster.TabIndex = 7;
             this.chkBoxCluster.Text = "Failover Cluster prior patching";
             this.chkBoxCluster.UseVisualStyleBackColor = true;
@@ -551,26 +566,29 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(54, 79);
+            this.label3.Location = new System.Drawing.Point(40, 64);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(131, 17);
+            this.label3.Size = new System.Drawing.Size(98, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Number of Threads";
             // 
             // numUpDownTreads
             // 
-            this.numUpDownTreads.Location = new System.Drawing.Point(7, 79);
+            this.numUpDownTreads.Location = new System.Drawing.Point(5, 64);
+            this.numUpDownTreads.Margin = new System.Windows.Forms.Padding(2);
             this.numUpDownTreads.Name = "numUpDownTreads";
             this.numUpDownTreads.ReadOnly = true;
-            this.numUpDownTreads.Size = new System.Drawing.Size(41, 22);
+            this.numUpDownTreads.Size = new System.Drawing.Size(31, 20);
             this.numUpDownTreads.TabIndex = 5;
             // 
             // numUpDownAttemptsNumber
             // 
-            this.numUpDownAttemptsNumber.Location = new System.Drawing.Point(7, 55);
+            this.numUpDownAttemptsNumber.Location = new System.Drawing.Point(5, 45);
+            this.numUpDownAttemptsNumber.Margin = new System.Windows.Forms.Padding(2);
             this.numUpDownAttemptsNumber.Name = "numUpDownAttemptsNumber";
             this.numUpDownAttemptsNumber.ReadOnly = true;
-            this.numUpDownAttemptsNumber.Size = new System.Drawing.Size(41, 22);
+            this.numUpDownAttemptsNumber.Size = new System.Drawing.Size(31, 20);
             this.numUpDownAttemptsNumber.TabIndex = 4;
             this.numUpDownAttemptsNumber.Value = new decimal(new int[] {
             40,
@@ -580,10 +598,11 @@
             // 
             // numUpDownMinutesReboot
             // 
-            this.numUpDownMinutesReboot.Location = new System.Drawing.Point(7, 27);
+            this.numUpDownMinutesReboot.Location = new System.Drawing.Point(5, 22);
+            this.numUpDownMinutesReboot.Margin = new System.Windows.Forms.Padding(2);
             this.numUpDownMinutesReboot.Name = "numUpDownMinutesReboot";
             this.numUpDownMinutesReboot.ReadOnly = true;
-            this.numUpDownMinutesReboot.Size = new System.Drawing.Size(41, 22);
+            this.numUpDownMinutesReboot.Size = new System.Drawing.Size(31, 20);
             this.numUpDownMinutesReboot.TabIndex = 3;
             this.numUpDownMinutesReboot.Value = new decimal(new int[] {
             6,
@@ -594,27 +613,28 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(54, 55);
+            this.label2.Location = new System.Drawing.Point(40, 45);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(223, 17);
+            this.label2.Size = new System.Drawing.Size(168, 13);
             this.label2.TabIndex = 3;
             this.label2.Text = "Number of Attempts (boot checks)";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(54, 27);
+            this.label1.Location = new System.Drawing.Point(40, 22);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(202, 17);
+            this.label1.Size = new System.Drawing.Size(153, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Minutes between last boot time";
             // 
             // cmdAddHosts
             // 
-            this.cmdAddHosts.Location = new System.Drawing.Point(4, 2);
-            this.cmdAddHosts.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdAddHosts.Location = new System.Drawing.Point(3, 2);
             this.cmdAddHosts.Name = "cmdAddHosts";
-            this.cmdAddHosts.Size = new System.Drawing.Size(100, 28);
+            this.cmdAddHosts.Size = new System.Drawing.Size(75, 23);
             this.cmdAddHosts.TabIndex = 1;
             this.cmdAddHosts.Text = "Add Hosts";
             this.cmdAddHosts.UseVisualStyleBackColor = true;
@@ -667,10 +687,9 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 538);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 433);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1659, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1244, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -686,15 +705,14 @@
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1659, 560);
+            this.ClientSize = new System.Drawing.Size(1244, 455);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "WUManager - v1.11";
+            this.Text = "WUManager - v1.4";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -793,6 +811,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Updates;
         private System.Windows.Forms.DataGridViewCheckBoxColumn RebootRequired;
         private System.Windows.Forms.DataGridViewTextBoxColumn OperationResults;
+        private System.Windows.Forms.ToolStripMenuItem reportUpdatesToWsusMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetAuthorizationOnWsus;
     }
 }
 

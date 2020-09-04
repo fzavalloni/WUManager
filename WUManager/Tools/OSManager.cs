@@ -5,21 +5,24 @@
     using System.Windows.Forms;
     using System.Management;
     using System.Drawing;
+    using System.IO;
     using WUManager.Enums;
 
-    class OSManager
+    public class OSManager
     {
         private delegate void RowReadnessMethodDelegate(string host, ref DataGridViewRow row, bool checkActiveResource);
         private delegate void RowMethodDelegate(string host, ref DataGridViewRow row);
         private List<DataGridViewRow> listRebootRow;
         private List<DataGridViewRow> listReadinessRow;
         private Font defaultCellStyle;
+        private bool remoteOperationsUsesDCOM;
 
-        public OSManager(Font defaultCellStyle)
+        public OSManager(Font defaultCellStyle, bool remoteOperationsUsesDCOM)
         {
             this.listRebootRow = new List<DataGridViewRow>();
             this.listReadinessRow = new List<DataGridViewRow>();
             this.defaultCellStyle = defaultCellStyle;
+            this.remoteOperationsUsesDCOM = remoteOperationsUsesDCOM;
         }
 
         public void BeginReboot(DataGridViewRow row, string host)
@@ -45,7 +48,7 @@
             lock (listReadinessRow)
             {
                 if (!listReadinessRow.Contains(row))
-                {                    
+                {
                     listReadinessRow.Add(row);
                     RowReadnessMethodDelegate de = new RowReadnessMethodDelegate(StartHostReadiness);
                     de.BeginInvoke(host, ref row, checkActiveResource, null, null);
@@ -70,6 +73,18 @@
         }
 
         public void StartReboot(string host, ref DataGridViewRow row)
+        {
+            if (remoteOperationsUsesDCOM)
+            {
+                StartRebootInternalViaDCOM(host, ref row);
+            }
+            else
+            {
+                StartRebootInternalViaPsExec(host, ref row);
+            }
+        }
+
+        private void StartRebootInternalViaDCOM(string host, ref DataGridViewRow row)
         {
             object rebootResult = string.Empty;
             string rebootStatus = string.Empty;
@@ -127,14 +142,103 @@
             }
         }
 
+        private void StartRebootInternalViaPsExec(string host, ref DataGridViewRow row)
+        {
+            object rebootResult = string.Empty;
+            string rebootStatus = string.Empty;
+            Color resultColor = Color.Black;
+
+            try
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "OS Connecting");
+
+                StreamReader executionOutput = null;
+                bool rebootIsInProgress = false;
+
+                OperSystemUtils operUtils = new OperSystemUtils(remoteOperationsUsesDCOM);
+                bool execResult = operUtils.ExecProcessViaPsExec(host, "shutdown.exe", "/r /t 0", out executionOutput);
+
+                if (execResult)
+                {
+                    string resultContent = executionOutput.ReadToEnd();
+                    rebootIsInProgress = (resultContent == null || resultContent.Trim().Length == 0);
+
+                    if (rebootIsInProgress)
+                    {
+                        resultColor = Color.Black;
+                        rebootStatus = "OS Reboot completed";
+                        rebootResult = "";
+                        DgvUtils.SetRowValue(ref row, WUCollums.RebootRequired, false);
+                    }
+                    else
+                    {
+                        resultColor = Color.Red;
+                        rebootStatus = "OS Reboot error";
+                        rebootResult = "Error: " + resultContent;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultColor = Color.Red;
+                rebootStatus = "OS Reboot error";
+                rebootResult = ex.Message;
+            }
+            finally
+            {
+                EndReboot(ref row);
+
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.OperationResults, resultColor);
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, rebootStatus);
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, rebootResult);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
+            }
+        }
+
         public DateTime GetLastBootDateTimeObject(string host, ref DataGridViewRow row)
         {
-            ManagementScope scope = GetWmiManagementScope(host);
+            if (remoteOperationsUsesDCOM)
+            {
+                ManagementScope scope = GetWmiManagementScope(host);
+                return GetLasBoot(scope);
+            }
+            else
+            {
+                /*
+                    C:\Windows\system32>wmic path Win32_OperatingSystem get LastBootUpTime
+                    LastBootUpTime
+                    20200830222819.410301-180                 
+                */
 
-            return GetLasBoot(scope);
+                StreamReader executionOutput = null;
+                DateTime lastBoot = default(DateTime);
+
+                OperSystemUtils operUtils = new OperSystemUtils(remoteOperationsUsesDCOM);
+                bool execResult = operUtils.ExecProcessViaPsExec(host, "wmic.exe", "path Win32_OperatingSystem get LastBootUpTime", out executionOutput);
+
+                if (execResult)
+                {
+                    string execOutputString = executionOutput.ReadToEnd();
+                    lastBoot = ParseCIMDateTime(execOutputString.Replace("LastBootUpTime", "").Trim());
+                }
+
+                return lastBoot;
+            }
         }
 
         public void StartHostReadiness(string host, ref DataGridViewRow row, bool hasActiveResources)
+        {
+            if (remoteOperationsUsesDCOM)
+            {
+                StartHostReadinessViaDCOM(host, ref row, hasActiveResources);
+            }
+            else
+            {
+                StartHostReadinessViaPsExec(host, ref row, hasActiveResources);
+            }
+        }
+
+        public void StartHostReadinessViaDCOM(string host, ref DataGridViewRow row, bool hasActiveResources)
         {
             DateTime lastBootDate = DateTime.MinValue;
             ServiceHostStatus automaticServicesStatus;
@@ -162,20 +266,43 @@
                     DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Executing remote powershell...");
                     string fqdnHostName = $"{host}.{GetFqdnDomain(scope)}";
                     string resultOutput = string.Empty;
-                    int activeResourcesCount = 0;                    
+                    int activeResourcesCount = 0;
 
                     using (PsManager ps = new PsManager(fqdnHostName))
                     {
                         activeResourcesCount = ps.GetActiveClusterResources().Count;
                         resultOutput = $"Clustered resources qty: [{activeResourcesCount}]";
                         if (activeResourcesCount != 0)
-                        {                            
+                        {
                             resultOutput = $"{resultOutput} - Resource Names: [{string.Join(", ", ps.GetActiveClusterResources().ToArray())}]";
                         }
-                        
+
                         DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, resultOutput);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Red);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, ex.Message);
+            }
+            finally
+            {
+                EndReadiness(ref row);
+            }
+        }
+
+        public void StartHostReadinessViaPsExec(string host, ref DataGridViewRow row, bool hasActiveResources)
+        {
+            try
+            {
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Starting");
+                DateTime lastBootDate = GetLastBootDateTimeObject(host, ref row);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, lastBootDate.ToString("dd/MM/yyyy HH:mm"));
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Finish");
             }
             catch (Exception ex)
             {
@@ -278,6 +405,7 @@
 
             return date;
         }
+
         private ManagementObjectCollection GetWmiResults(ManagementScope scope, ObjectQuery query)
         {
             using (ManagementObjectSearcher mos = new ManagementObjectSearcher(scope, query))
@@ -317,7 +445,6 @@
             //return datetime
             return date;
         }
-
     }
 
     public class ServiceHostStatus

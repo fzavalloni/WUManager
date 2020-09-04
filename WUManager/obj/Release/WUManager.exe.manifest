@@ -3,7 +3,7 @@
   <asmv1:assemblyIdentity name="WUManager.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="WUManager" version="1.3.2.1" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="WUManager" version="1.4.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="WUManager.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -53,14 +53,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="71168">
-      <assemblyIdentity name="WUManager" version="1.3.2.1" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WUManager.exe" size="76288">
+      <assemblyIdentity name="WUManager" version="1.4.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ja8M98XUdK8yD0pOQ0orNISM5dRORYufWoiO6aPHEKY=</dsig:DigestValue>
+        <dsig:DigestValue>mjjeZiuswJAMdqM1D3GX+3RW0xVuLHCi0EblYH+biu8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -73,13 +73,13 @@
       <dsig:DigestValue>OwhTW0rdGU9WYeETHI6Brzc8oyLPZpZ0zxJyCV5cq5U=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="WUManager.exe.config" size="143">
+  <file name="WUManager.exe.config" size="252">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>8hDv76Des27wpKEa4Pt8nDjrJxrZ9n5+GHWNNs0FBlc=</dsig:DigestValue>
+      <dsig:DigestValue>C2tcLVGWF+PzmAVm1JUuoiCuWZE1omeA+APaD0v865c=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

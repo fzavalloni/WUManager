@@ -1,0 +1,12 @@
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\psexec.exe
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\WUManagerConsoleTester.exe.config
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\WUManagerConsoleTester.exe
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\WUManagerConsoleTester.pdb
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\WUManager.exe
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\System.Management.Automation.dll
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\WUManager.pdb
+D:\__Repository\WUManager\WUManagerConsoleTester\bin\Debug\WUManager.exe.config
+D:\__Repository\WUManager\WUManagerConsoleTester\obj\Debug\WUManagerConsoleTester.csprojAssemblyReference.cache
+D:\__Repository\WUManager\WUManagerConsoleTester\obj\Debug\WUManagerConsoleTester.csproj.CopyComplete
+D:\__Repository\WUManager\WUManagerConsoleTester\obj\Debug\WUManagerConsoleTester.exe
+D:\__Repository\WUManager\WUManagerConsoleTester\obj\Debug\WUManagerConsoleTester.pdb

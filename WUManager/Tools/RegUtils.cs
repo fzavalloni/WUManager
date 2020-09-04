@@ -8,10 +8,12 @@ namespace WUManager.Tools
     public class RegUtils
     {
         private string machineName;
+
         public RegUtils(string machineName)
         {
             this.machineName = machineName;
         }
+
         public object GetKeyValue(string key, string subKey)
         {
             object result = null;

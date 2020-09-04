@@ -124,3 +124,21 @@ C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUMa
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Release\WUManager.pdb
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Release\WUManager.csproj.CopyComplete
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Release\WUManager.csprojAssemblyReference.cache
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.Controls.ProgressBar.resources
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.FormMain.resources
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.FormAddHosts.resources
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.FormStartBatch.resources
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.csproj.GenerateResource.cache
+D:\__Repository\WUManager\Binaries\Release\psexec.exe
+D:\__Repository\WUManager\Binaries\Release\WUManager.exe.config
+D:\__Repository\WUManager\Binaries\Release\WUManager.exe.manifest
+D:\__Repository\WUManager\Binaries\Release\WUManager.application
+D:\__Repository\WUManager\Binaries\Release\WUManager.exe
+D:\__Repository\WUManager\Binaries\Release\WUManager.pdb
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.TrustInfo.xml
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.exe.manifest
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.application
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.csproj.CopyComplete
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.exe
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.pdb
+D:\__Repository\WUManager\WUManager\obj\Release\WUManager.csprojAssemblyReference.cache

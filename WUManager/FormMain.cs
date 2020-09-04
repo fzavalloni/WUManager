@@ -20,7 +20,7 @@
         private Dictionary<DataGridViewRow, Thread> threadList;
         private Tools.Pinger pinger;
         private Tools.OSManager osManager;
-        static Semaphore semaphore;        
+        static Semaphore semaphore;
 
         public FormMain()
         {
@@ -28,7 +28,7 @@
 
             this.threadList = new Dictionary<DataGridViewRow, Thread>();
             this.pinger = new Tools.Pinger(this.dataGridView.DefaultCellStyle.Font);
-            this.osManager = new Tools.OSManager(this.dataGridView.DefaultCellStyle.Font);
+            this.osManager = new Tools.OSManager(this.dataGridView.DefaultCellStyle.Font, ConfigurationFileHelper.RemoteOperationsUsesDCOM);
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -78,7 +78,113 @@
             this.OpenFormAddHosts();
         }
 
-        #region Actions
+        private RichTextBox FillTextList()
+        {
+            RichTextBox list = new RichTextBox();
+
+            foreach (DataGridViewRow obj in dataGridView.Rows)
+            {
+                string line = string.Format("{0}\r\n", obj.Cells["Host"].Value.ToString());
+                list.AppendText(line);
+            }
+            return list;
+        }
+
+        private void Sys_RemoveThreadRow(ref DataGridViewRow row)
+        {
+            lock (threadList)
+            {
+                if (threadList.ContainsKey(row))
+                {
+                    threadList.Remove(row);
+                }
+            }
+        }
+
+        // This method was created because, by default, the method SelectedRows execute the row
+        // from the botton to the top, and it fixes this to keep the execution order more
+        // intuitive mainly for the Batch Executions
+        private List<DataGridViewRow> InvertSelectedRowOrder(DataGridViewSelectedRowCollection selectedRows)
+        {
+            List<DataGridViewRow> rowList = new List<DataGridViewRow>();
+            foreach (DataGridViewRow row in selectedRows)
+            {
+                rowList.Add(row);
+            }
+            rowList.Reverse();
+            return rowList;
+        }
+
+        private void Act_RemoveSelectedItens()
+        {
+            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_RemoveItem);
+
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                de.BeginInvoke(row, null, null);
+            }
+        }
+
+        private void Act_RemoveItem(DataGridViewRow row)
+        {
+            if (dataGridView.InvokeRequired)
+            {
+                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_RemoveItem);
+                dataGridView.Invoke(de, row);
+            }
+            else
+            {
+                pinger.BeginStop(row);
+
+                lock (row)
+                {
+                    lock (threadList)
+                    {
+                        if (threadList.ContainsKey(row))
+                        {
+                            threadList[row].Abort(null);
+                            threadList.Remove(row);
+                        }
+                    }
+
+                    dataGridView.Rows.Remove(row);
+                }
+            }
+        }
+
+        private void Act_Exit()
+        {
+            lock (threadList)
+            {
+                foreach (KeyValuePair<DataGridViewRow, Thread> item in threadList)
+                {
+                    item.Value.Abort();
+                }
+            }
+
+            this.Close();
+        }
+
+        private void CheckBatchExecutionErrors(DataGridViewRow row)
+        {
+            try
+            {
+                string batchStatus = DgvUtils.GetRowValue(ref row, WUCollums.Status).ToString();
+                string operationResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
+                if (string.Equals(batchStatus, "ThreadError", StringComparison.CurrentCultureIgnoreCase))
+                    throw new Exception($"BatchExecutionError: {operationResult}");
+            }
+            catch { }
+        }
+
+        private void CreateSemaphore()
+        {
+            int threadCounter = (int)numUpDownTreads.Value == 0 ? 10000 : (int)numUpDownTreads.Value;
+            if (semaphore == null)
+                semaphore = new Semaphore(threadCounter, 10000);
+        }
+
+        #region Count Updates Action
 
         private void Act_CountUpdatesSelectedItens()
         {
@@ -113,6 +219,49 @@
             newThread.Start(row);
 
         }
+
+        private void Act_CountUpdatesExecutor(object rowObject)
+        {
+            DataGridViewRow row = (DataGridViewRow)rowObject;
+
+            try
+            {
+                OperSystemUtils operSys = new OperSystemUtils(ConfigurationFileHelper.RemoteOperationsUsesDCOM);
+
+                row.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 160);
+                row.DefaultCellStyle.SelectionBackColor = Color.Coral;
+
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Starting");
+                DgvUtils.SetRowValue(ref row, WUCollums.Updates, string.Empty);
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
+                DgvUtils.SetRowValue(ref row, WUCollums.Progress, 0);
+
+                string hostName = row.Cells["Host"].Value.ToString();
+
+                operSys.CopyPsExec(hostName);
+
+                StreamReader reader = operSys.ExecWua("/countUpdates", hostName);
+
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    Act_InstallUpdatesInterpretor(ref row, line);
+                }
+            }
+            catch (Exception ex)
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "ThreadError");
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, ex.Message);
+            }
+            finally
+            {
+                this.Sys_RemoveThreadRow(ref row);
+            }
+        }
+
+        #endregion
+
+        #region Install Updates Action
 
         private void Act_InstallUpdateInSelectedItens()
         {
@@ -281,7 +430,7 @@
 
             try
             {
-                OperSystemUtils operSys = new OperSystemUtils();
+                OperSystemUtils operSys = new OperSystemUtils(ConfigurationFileHelper.RemoteOperationsUsesDCOM);
 
                 row.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 160);
                 row.DefaultCellStyle.SelectionBackColor = Color.Coral;
@@ -311,376 +460,6 @@
             {
                 this.Sys_RemoveThreadRow(ref row);
             }
-        }
-
-
-        private void Act_CountUpdatesExecutor(object rowObject)
-        {
-            DataGridViewRow row = (DataGridViewRow)rowObject;
-
-            try
-            {
-                OperSystemUtils operSys = new OperSystemUtils();
-
-                row.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 160);
-                row.DefaultCellStyle.SelectionBackColor = Color.Coral;
-
-                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Starting");
-                DgvUtils.SetRowValue(ref row, WUCollums.Updates, string.Empty);
-                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
-                DgvUtils.SetRowValue(ref row, WUCollums.Progress, 0);
-
-                string hostName = row.Cells["Host"].Value.ToString();
-
-                operSys.CopyPsExec(hostName);
-
-                StreamReader reader = operSys.ExecWua("/countUpdates", hostName);
-
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    Act_InstallUpdatesInterpretor(ref row, line);
-                }
-            }
-            catch (Exception ex)
-            {
-                DgvUtils.SetRowValue(ref row, WUCollums.Status, "ThreadError");
-                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, ex.Message);
-            }
-            finally
-            {
-                this.Sys_RemoveThreadRow(ref row);
-            }
-        }
-
-        private void Sys_RemoveThreadRow(ref DataGridViewRow row)
-        {
-            lock (threadList)
-            {
-                if (threadList.ContainsKey(row))
-                {
-                    threadList.Remove(row);
-                }
-            }
-        }
-
-        private void Act_RemoveSelectedItens()
-        {
-            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_RemoveItem);
-
-            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
-            {
-                de.BeginInvoke(row, null, null);
-            }
-        }
-
-        private void Act_RemoveItem(DataGridViewRow row)
-        {
-            if (dataGridView.InvokeRequired)
-            {
-                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_RemoveItem);
-                dataGridView.Invoke(de, row);
-            }
-            else
-            {
-                pinger.BeginStop(row);
-
-                lock (row)
-                {
-                    lock (threadList)
-                    {
-                        if (threadList.ContainsKey(row))
-                        {
-                            threadList[row].Abort(null);
-                            threadList.Remove(row);
-                        }
-                    }
-
-                    dataGridView.Rows.Remove(row);
-                }
-            }
-        }
-
-        private void Act_Exit()
-        {
-            lock (threadList)
-            {
-                foreach (KeyValuePair<DataGridViewRow, Thread> item in threadList)
-                {
-                    item.Value.Abort();
-                }
-            }
-
-            this.Close();
-        }
-        // This method was created because, by default, the method SelectedRows execute the row
-        // from the botton to the top, and it fixes this to keep the execution order more
-        // intuitive mainly for the Batch Executions
-        private List<DataGridViewRow> InvertSelectedRowOrder(DataGridViewSelectedRowCollection selectedRows)
-        {
-            List<DataGridViewRow> rowList = new List<DataGridViewRow>();
-            foreach (DataGridViewRow row in selectedRows)
-            {
-                rowList.Add(row);
-            }
-            rowList.Reverse();
-            return rowList;
-        }
-
-        private void Act_StartPingInSelectedItens()
-        {
-
-            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
-            {
-                string host = row.Cells["Host"].Value.ToString();
-                pinger.BeginStart(host, row);
-            }
-        }
-
-        private void Act_StartCheckRebootSelectedItens()
-        {
-            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StartCheckReboot);
-            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
-            {
-                de.BeginInvoke(row, null, null);
-            }
-        }
-
-        private void Act_StartCheckReboot(DataGridViewRow row)
-        {
-            try
-            {
-                DgvUtils.SetRowValue(ref row, WUCollums.RebootRequired, false);
-                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
-
-                OperSystemUtils operUtils = new OperSystemUtils();
-
-                string host = row.Cells["Host"].Value.ToString();
-                bool isRequiredBoot = operUtils.IsRebootRequired(host);
-
-                if (isRequiredBoot)
-                {
-                    DgvUtils.SetRowValue(ref row, WUCollums.RebootRequired, true);
-                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Reboot Required");
-                }
-                else
-                {
-                    DgvUtils.SetRowValue(ref row, WUCollums.RebootRequired, false);
-                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Reboot NOT Required");
-                }
-            }
-            catch (Exception erro)
-            {
-                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, erro.Message);
-            }
-        }
-
-        private void Act_StopPingInSelectedItens()
-        {
-            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
-            {
-                pinger.BeginStop(row);
-            }
-        }
-
-        private void Act_GetReadinessInSelectedItens()
-        {
-            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
-            {
-                string host = row.Cells["Host"].Value.ToString();
-                osManager.BeginHostReadiness(host, row, chkBoxClusterResources.Checked);
-            }
-        }
-
-        private void Act_RebootSelectedItens()
-        {
-            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
-            {
-                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
-                de.BeginInvoke(row, null, null);
-            }
-        }
-
-        public void Act_InstallUpdateBatchInSelectedItens(DateTime executionTime)
-        {
-            // Add semaphore to control threads
-            CreateSemaphore();
-
-            DataGridViewBatchRowDelegate de = new DataGridViewBatchRowDelegate(Act_InstallUpdatesBatch);
-
-            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
-            {
-                de.BeginInvoke(row, executionTime, null, null);
-            }
-        }
-
-        private void CreateSemaphore()
-        {
-            int threadCounter = (int)numUpDownTreads.Value == 0 ? 10000 : (int)numUpDownTreads.Value;
-            if (semaphore == null)
-                semaphore = new Semaphore(threadCounter, 10000);
-        }
-
-        private void Act_StopThreadAndReboot(DataGridViewRow row)
-        {
-            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
-            if (dataGridView.InvokeRequired)
-            {
-                dataGridView.Invoke(de, row);
-            }
-            else
-            {
-                lock (row)
-                {
-                    string host = row.Cells["Host"].Value.ToString();
-
-                    osManager.BeginReboot(row, host);
-
-                    lock (threadList)
-                    {
-                        if (threadList.ContainsKey(row))
-                        {
-                            threadList[row].Abort(null);
-
-                            Thread.Sleep(5000);
-                        }
-                    }
-
-                    pinger.BeginStart(host, row);
-                }
-            }
-        }
-
-        #endregion
-
-        #region Tool Strip Menu
-
-        private void AddToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            this.OpenFormAddHosts();
-        }
-
-        private void InstallUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_InstallUpdateInSelectedItens();
-        }
-
-        private void ExitToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_Exit();
-        }
-
-        private void StartPingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_StartPingInSelectedItens();
-        }
-
-        private void RtopPingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_StopPingInSelectedItens();
-        }
-
-        private void GetLastBootToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_GetReadinessInSelectedItens();
-        }
-
-        private void RebootToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_RebootSelectedItens();
-        }
-
-        private void StartPingToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_StartPingInSelectedItens();
-        }
-
-        private void StopPingToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_StopPingInSelectedItens();
-        }
-
-        private void GetLastBootToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_GetReadinessInSelectedItens();
-        }
-
-        private void RebootToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            this.Act_RebootSelectedItens();
-        }
-
-        private void InstallUpdatesContextToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_InstallUpdateInSelectedItens();
-        }
-
-        private void RemoveItensToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_RemoveSelectedItens();
-        }
-
-        private void RemoveContextToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_RemoveSelectedItens();
-        }
-
-        #endregion
-
-
-        private void CheckRebootToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_StartCheckRebootSelectedItens();
-        }
-
-        private void CountUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_CountUpdatesSelectedItens();
-        }
-
-        private void CheckRebootToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            this.Act_StartCheckRebootSelectedItens();
-        }
-
-        private void CountUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Act_CountUpdatesSelectedItens();
-        }
-
-        private void SaveListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.Rows.Count != 0)
-            {
-                this.saveFile.FileName = "List.txt";
-                this.saveFile.DefaultExt = "txt";
-                this.saveFile.RestoreDirectory = true;
-
-                RichTextBox hostsList = FillTextList();
-
-                if (saveFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    hostsList.SaveFile(saveFile.FileName, RichTextBoxStreamType.PlainText);
-                }
-            }
-        }
-
-        private RichTextBox FillTextList()
-        {
-            RichTextBox list = new RichTextBox();
-
-            foreach (DataGridViewRow obj in dataGridView.Rows)
-            {
-                string line = string.Format("{0}\r\n", obj.Cells["Host"].Value.ToString());
-                list.AppendText(line);
-            }
-            return list;
-        }
-
-        private void InstallUpdatesBatchingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FormStartBatch form = new FormStartBatch(this);
-            form.ShowDialog();
         }
 
         private void Act_InstallUpdatesBatch(DataGridViewRow row, DateTime executionTime)
@@ -730,7 +509,7 @@
         }
 
         private void Act_InstallUpdatesBatchExecutor(object rowObject)
-        {            
+        {
             bool isRebootRequired = false;
             DateTime lastReboot = new DateTime();
             DataGridViewRow row = (DataGridViewRow)rowObject;
@@ -842,7 +621,7 @@
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, ex.Message);
             }
             finally
-            {                
+            {
                 sw.Stop();
                 operResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults,
@@ -857,16 +636,345 @@
             }
         }
 
-        private void CheckBatchExecutionErrors(DataGridViewRow row)
+        public void Act_InstallUpdateBatchInSelectedItens(DateTime executionTime)
+        {
+            // Add semaphore to control threads
+            CreateSemaphore();
+
+            DataGridViewBatchRowDelegate de = new DataGridViewBatchRowDelegate(Act_InstallUpdatesBatch);
+
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                de.BeginInvoke(row, executionTime, null, null);
+            }
+        }
+
+        #endregion
+
+        #region Start/Stop Ping Actions
+
+        private void Act_StartPingInSelectedItens()
+        {
+
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                string host = row.Cells["Host"].Value.ToString();
+                pinger.BeginStart(host, row);
+            }
+        }
+
+        private void Act_StopPingInSelectedItens()
+        {
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                pinger.BeginStop(row);
+            }
+        }
+
+        #endregion
+
+        #region Reboot Pending and Last Reboot Date Actions
+
+        private void Act_StartCheckRebootSelectedItens()
+        {
+            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StartCheckReboot);
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                de.BeginInvoke(row, null, null);
+            }
+        }
+
+        private void Act_StartCheckReboot(DataGridViewRow row)
         {
             try
             {
-                string batchStatus = DgvUtils.GetRowValue(ref row, WUCollums.Status).ToString();
-                string operationResult = DgvUtils.GetRowValue(ref row, WUCollums.OperationResults).ToString();
-                if (string.Equals(batchStatus, "ThreadError", StringComparison.CurrentCultureIgnoreCase))
-                    throw new Exception($"BatchExecutionError: {operationResult}");
+                DgvUtils.SetRowValue(ref row, WUCollums.RebootRequired, false);
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, string.Empty);
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Starting");
+
+                OperSystemUtils operUtils = new OperSystemUtils(ConfigurationFileHelper.RemoteOperationsUsesDCOM);
+
+                string host = row.Cells["Host"].Value.ToString();
+                bool isRequiredBoot = operUtils.IsRebootRequired(host);
+
+                if (isRequiredBoot)
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.RebootRequired, true);
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Reboot Required");
+                }
+                else
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.RebootRequired, false);
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Reboot NOT Required");
+                }
             }
-            catch { }
+            catch (Exception erro)
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, erro.Message);
+            }
+            finally
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Finish");
+            }
         }
+
+        private void Act_RebootSelectedItens()
+        {
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
+                de.BeginInvoke(row, null, null);
+            }
+        }
+
+        private void Act_GetLastBootDateSelectedItens()
+        {
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                string host = row.Cells["Host"].Value.ToString();
+                osManager.BeginHostReadiness(host, row, chkBoxClusterResources.Checked);
+            }
+        }
+
+        private void Act_StopThreadAndReboot(DataGridViewRow row)
+        {
+            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
+            if (dataGridView.InvokeRequired)
+            {
+                dataGridView.Invoke(de, row);
+            }
+            else
+            {
+                lock (row)
+                {
+                    string host = row.Cells["Host"].Value.ToString();
+
+                    osManager.BeginReboot(row, host);
+
+                    lock (threadList)
+                    {
+                        if (threadList.ContainsKey(row))
+                        {
+                            threadList[row].Abort(null);
+
+                            Thread.Sleep(5000);
+                        }
+                    }
+
+                    pinger.BeginStart(host, row);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Wsus Report Now and Reset Authorization Actions
+
+        private void Act_ReportUpdatesToWsusSelectedItens()
+        {
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_ReportUpdatesToWsus);
+                de.BeginInvoke(row, null, null);
+            }
+        }
+
+        private void Act_ResetAuthorizationOnWsusSelectedItens()
+        {
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_ResetAuthorizationOnWsus);
+                de.BeginInvoke(row, null, null);
+            }
+        }
+
+        private void Act_ReportUpdatesToWsus(DataGridViewRow row)
+        {
+            try
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Starting");
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Executing report updates (wuauclt.exe /reportnow)");
+
+                OperSystemUtils operUtils = new OperSystemUtils(ConfigurationFileHelper.RemoteOperationsUsesDCOM);
+
+                string host = row.Cells["Host"].Value.ToString();
+                bool operationResult = operUtils.ReportUpdatesToWsus(host);
+
+                if (operationResult)
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Report updates executed successfully");
+                }
+                else
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Report updates NOT executed");
+                }
+
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Finish");
+            }
+            catch (Exception erro)
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "ThreadError");
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, erro.Message);
+            }
+        }
+
+        private void Act_ResetAuthorizationOnWsus(DataGridViewRow row)
+        {
+            try
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Starting");
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Executing reset authorization (wuauclt.exe /resetauthorization /detectnow)");
+
+                OperSystemUtils operUtils = new OperSystemUtils(ConfigurationFileHelper.RemoteOperationsUsesDCOM);
+
+                string host = row.Cells["Host"].Value.ToString();
+                bool operationResult = operUtils.ResetAuthorizationOnWsus(host);
+
+                if (operationResult)
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Reset authorization executed successfully");
+                }
+                else
+                {
+                    DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, "Reset authorization NOT executed");
+                }
+
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "Finish");
+            }
+            catch (Exception erro)
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "ThreadError");
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, erro.Message);
+            }
+        }
+
+        #endregion
+
+        #region Tool Strip Menu
+
+        private void AddToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            this.OpenFormAddHosts();
+        }
+
+        private void InstallUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_InstallUpdateInSelectedItens();
+        }
+
+        private void ExitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_Exit();
+        }
+
+        private void StartPingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_StartPingInSelectedItens();
+        }
+
+        private void RtopPingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_StopPingInSelectedItens();
+        }
+
+        private void GetLastBootToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_GetLastBootDateSelectedItens();
+        }
+
+        private void ReportUpdatesToWsusMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_ReportUpdatesToWsusSelectedItens();
+        }
+
+        private void ResetAuthorizationOnWsusMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_ResetAuthorizationOnWsusSelectedItens();
+        }
+
+        private void RebootToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_RebootSelectedItens();
+        }
+
+        private void StartPingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_StartPingInSelectedItens();
+        }
+
+        private void StopPingToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_StopPingInSelectedItens();
+        }
+
+        private void GetLastBootToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_GetLastBootDateSelectedItens();
+        }
+
+        private void RebootToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            this.Act_RebootSelectedItens();
+        }
+
+        private void InstallUpdatesContextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_InstallUpdateInSelectedItens();
+        }
+
+        private void RemoveItensToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_RemoveSelectedItens();
+        }
+
+        private void RemoveContextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_RemoveSelectedItens();
+        }
+
+        private void CheckRebootToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_StartCheckRebootSelectedItens();
+        }
+
+        private void CountUpdatesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_CountUpdatesSelectedItens();
+        }
+
+        private void CheckRebootToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            this.Act_StartCheckRebootSelectedItens();
+        }
+
+        private void CountUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_CountUpdatesSelectedItens();
+        }
+
+        private void SaveListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.Rows.Count != 0)
+            {
+                this.saveFile.FileName = "List.txt";
+                this.saveFile.DefaultExt = "txt";
+                this.saveFile.RestoreDirectory = true;
+
+                RichTextBox hostsList = FillTextList();
+
+                if (saveFile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    hostsList.SaveFile(saveFile.FileName, RichTextBoxStreamType.PlainText);
+                }
+            }
+        }
+
+        private void InstallUpdatesBatchingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormStartBatch form = new FormStartBatch(this);
+            form.ShowDialog();
+        }
+
+        #endregion        
     }
 }

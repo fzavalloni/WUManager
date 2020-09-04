@@ -100,3 +100,21 @@ C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUMa
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.pdb
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.csprojResolveAssemblyReference.cache
 C:\Users\fzavalloni\Documents\OneDrive - Schuberg Philis\Personal_Stuff\GIT\WUManager\WUManager\obj\Debug\WUManager.FormStartBatch.resources
+D:\__Repository\WUManager\Output\bin\Debug\psexec.exe
+D:\__Repository\WUManager\Output\bin\Debug\WUManager.exe.config
+D:\__Repository\WUManager\Output\bin\Debug\WUManager.exe.manifest
+D:\__Repository\WUManager\Output\bin\Debug\WUManager.application
+D:\__Repository\WUManager\Output\bin\Debug\WUManager.exe
+D:\__Repository\WUManager\Output\bin\Debug\WUManager.pdb
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.Controls.ProgressBar.resources
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.FormMain.resources
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.FormAddHosts.resources
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.FormStartBatch.resources
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.csproj.GenerateResource.cache
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.TrustInfo.xml
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.exe.manifest
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.application
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.csproj.CopyComplete
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.exe
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.pdb
+D:\__Repository\WUManager\WUManager\obj\Debug\WUManager.csprojAssemblyReference.cache
