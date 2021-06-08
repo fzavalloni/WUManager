@@ -6,7 +6,7 @@ namespace WUManager.Tools
 {
     public class OperSystemUtils
     {
-        private string key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update";
+        private string key = @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update";
         private string subKey = "RebootRequired";
         private bool remoteOperationsUsesDCOM;
 
