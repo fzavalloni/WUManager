@@ -12,14 +12,14 @@
     {
         private delegate void RowReadnessMethodDelegate(string host, ref DataGridViewRow row, bool checkActiveResource);
         private delegate void RowMethodDelegate(string host, ref DataGridViewRow row);
-        private List<DataGridViewRow> listRebootRow;
+        private List<DataGridViewRow> listItemsActionRow;
         private List<DataGridViewRow> listReadinessRow;
         private Font defaultCellStyle;
         private bool remoteOperationsUsesDCOM;
 
         public OSManager(Font defaultCellStyle, bool remoteOperationsUsesDCOM)
         {
-            this.listRebootRow = new List<DataGridViewRow>();
+            this.listItemsActionRow = new List<DataGridViewRow>();
             this.listReadinessRow = new List<DataGridViewRow>();
             this.defaultCellStyle = defaultCellStyle;
             this.remoteOperationsUsesDCOM = remoteOperationsUsesDCOM;
@@ -27,17 +27,35 @@
 
         public void BeginReboot(DataGridViewRow row, string host)
         {
-            lock (listRebootRow)
+            lock (listItemsActionRow)
             {
-                if (!listRebootRow.Contains(row))
+                if (!listItemsActionRow.Contains(row))
                 {
                     DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);
                     DgvUtils.SetRowValue(ref row, WUCollums.Status, "OS Preparing");
                     //SetLastBootRowStyleFont(ref row, new Font(defaultCellStyle, FontStyle.Regular));                    
 
-                    listRebootRow.Add(row);
+                    listItemsActionRow.Add(row);
 
                     RowMethodDelegate de = new RowMethodDelegate(StartReboot);
+                    de.BeginInvoke(host, ref row, null, null);
+                }
+            }
+        }
+
+        public void BeginShutdown(DataGridViewRow row, string host)
+        {
+            lock (listItemsActionRow)
+            {
+                if (!listItemsActionRow.Contains(row))
+                {
+                    DgvUtils.SetRowStyleForeColor(ref row, WUCollums.LastBoot, Color.Black);
+                    DgvUtils.SetRowValue(ref row, WUCollums.Status, "OS Preparing");
+                    //SetLastBootRowStyleFont(ref row, new Font(defaultCellStyle, FontStyle.Regular));                    
+
+                    listItemsActionRow.Add(row);
+
+                    RowMethodDelegate de = new RowMethodDelegate(StartShutdown);
                     de.BeginInvoke(host, ref row, null, null);
                 }
             }
@@ -66,9 +84,9 @@
 
         public void EndReboot(ref DataGridViewRow row)
         {
-            lock (listRebootRow)
+            lock (listItemsActionRow)
             {
-                listRebootRow.Remove(row);
+                listItemsActionRow.Remove(row);
             }
         }
 
@@ -192,6 +210,137 @@
                 DgvUtils.SetRowValue(ref row, WUCollums.Status, rebootStatus);
                 DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, rebootResult);
                 DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
+            }
+        }
+
+        public void StartShutdown(string host, ref DataGridViewRow row)
+        {
+            if (remoteOperationsUsesDCOM)
+            {
+                StartShutdownInternalViaDCOM(host, ref row);
+            }
+            else
+            {
+                StartShutdownInternalViaPsExec(host, ref row);
+            }
+        }
+
+        private void StartShutdownInternalViaDCOM(string host, ref DataGridViewRow row)
+        {
+            object shutdownResult = string.Empty;
+            string shutdownStatus = string.Empty;
+            Color resultColor = Color.Black;
+
+            try
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "OS Connecting");
+
+                ManagementScope scope = GetWmiManagementScope(host);
+
+                ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+                using (ManagementObjectSearcher mos = new ManagementObjectSearcher(scope, query))
+                {
+                    foreach (ManagementObject mo in mos.Get())
+                    {
+                        // https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32shutdown-method-in-class-win32-operatingsystem
+                        // 5 - Forced Shutdown (1 + 4) - Shuts down the computer to a point where it is safe to turn off the power. (All file buffers are flushed to disk, and all running processes are stopped.) Users see the message, It is now safe to turn off your computer.
+                        ManagementBaseObject inParams = mo.GetMethodParameters("Win32Shutdown");
+                        inParams["Flags"] = "5";  
+                        inParams["Reserved"] = "0";
+
+                        ManagementBaseObject outParams = mo.InvokeMethod("Win32Shutdown", inParams, null);
+
+                        shutdownResult = outParams["returnValue"];
+
+                        if (Convert.ToInt32(shutdownResult).Equals(0))
+                        {
+                            resultColor = Color.Black;
+                            shutdownStatus = "OS Force Shutdown completed";
+                            shutdownResult = "";
+                        }
+                        else
+                        {
+                            resultColor = Color.Red;
+                            shutdownStatus = "OS Force Shutdown error";
+                            shutdownResult = "Error: " + shutdownResult;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultColor = Color.Red;
+                shutdownStatus = "OS Force Shutdown error";
+                shutdownResult = ex.Message;
+            }
+            finally
+            {
+                EndShutdown(ref row);
+
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.OperationResults, resultColor);
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, shutdownStatus);
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, shutdownResult);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
+            }
+        }
+
+        private void StartShutdownInternalViaPsExec(string host, ref DataGridViewRow row)
+        {
+            object shutdownResult = string.Empty;
+            string shutdownStatus = string.Empty;
+            Color resultColor = Color.Black;
+
+            try
+            {
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, "OS Connecting");
+
+                StreamReader executionOutput = null;
+                bool shutdownIsInProgress = false;
+
+                OperSystemUtils operUtils = new OperSystemUtils(remoteOperationsUsesDCOM);
+                bool execResult = operUtils.ExecProcessViaPsExec(host, "shutdown.exe", "/s /f /t 0", out executionOutput);
+
+                if (execResult)
+                {
+                    string resultContent = executionOutput.ReadToEnd();
+                    shutdownIsInProgress = (resultContent == null || resultContent.Trim().Length == 0);
+
+                    if (shutdownIsInProgress)
+                    {
+                        resultColor = Color.Black;
+                        shutdownStatus = "OS Force Shutdown completed";
+                        shutdownResult = "";
+                    }
+                    else
+                    {
+                        resultColor = Color.Red;
+                        shutdownStatus = "OS Force Shutdown error";
+                        shutdownResult = "Error: " + resultContent;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultColor = Color.Red;
+                shutdownStatus = "OS Force Shutdown error";
+                shutdownResult = ex.Message;
+            }
+            finally
+            {
+                EndShutdown(ref row);
+
+                DgvUtils.SetRowStyleForeColor(ref row, WUCollums.OperationResults, resultColor);
+                DgvUtils.SetRowValue(ref row, WUCollums.Status, shutdownStatus);
+                DgvUtils.SetRowValue(ref row, WUCollums.OperationResults, shutdownResult);
+                DgvUtils.SetRowValue(ref row, WUCollums.LastBoot, string.Empty);
+            }
+        }
+
+        public void EndShutdown(ref DataGridViewRow row)
+        {
+            lock (listItemsActionRow)
+            {
+                listItemsActionRow.Remove(row);
             }
         }
 

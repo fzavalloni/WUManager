@@ -725,7 +725,7 @@
                 DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndReboot);
                 de.BeginInvoke(row, null, null);
             }
-        }
+        }        
 
         private void Act_GetLastBootDateSelectedItens()
         {
@@ -750,6 +750,45 @@
                     string host = row.Cells["Host"].Value.ToString();
 
                     osManager.BeginReboot(row, host);
+
+                    lock (threadList)
+                    {
+                        if (threadList.ContainsKey(row))
+                        {
+                            threadList[row].Abort(null);
+
+                            Thread.Sleep(5000);
+                        }
+                    }
+
+                    pinger.BeginStart(host, row);
+                }
+            }
+        }
+
+        private void Act_ShutdownSelectedItens()
+        {
+            foreach (DataGridViewRow row in InvertSelectedRowOrder(dataGridView.SelectedRows))
+            {
+                DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndShutdown);
+                de.BeginInvoke(row, null, null);
+            }
+        }
+
+        private void Act_StopThreadAndShutdown(DataGridViewRow row)
+        {
+            DataGridViewRowDelegate de = new DataGridViewRowDelegate(Act_StopThreadAndShutdown);
+            if (dataGridView.InvokeRequired)
+            {
+                dataGridView.Invoke(de, row);
+            }
+            else
+            {
+                lock (row)
+                {
+                    string host = row.Cells["Host"].Value.ToString();
+
+                    osManager.BeginShutdown(row, host);
 
                     lock (threadList)
                     {
@@ -895,6 +934,11 @@
         private void RebootToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             this.Act_RebootSelectedItens();
+        }
+
+        private void ShutdownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Act_ShutdownSelectedItens();
         }
 
         private void StartPingToolStripMenuItem1_Click(object sender, EventArgs e)

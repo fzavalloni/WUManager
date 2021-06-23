@@ -31,10 +31,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.Host = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +62,7 @@
             this.installUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.rebootToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.shutdownToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.removeItensToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -78,6 +79,7 @@
             this.installUpdatesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.rebootToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.shutdownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.removeItensToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,6 +107,8 @@
             this.addHostsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFile = new System.Windows.Forms.SaveFileDialog();
             this.dataGridViewProgressColumn1 = new WUManager.ProgBar.DataGridViewProgressColumn();
+            this.wsusResetAuthorizationDetectNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wsusReportUpdatesNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -160,26 +164,26 @@
             this.RebootRequired,
             this.OperationResults});
             this.dataGridView.ContextMenuStrip = this.contextMenuStrip1;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SlateBlue;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.SlateBlue;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView.Location = new System.Drawing.Point(0, 24);
             this.dataGridView.Name = "dataGridView";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(1244, 288);
             this.dataGridView.TabIndex = 2;
@@ -211,8 +215,8 @@
             // 
             // ServicesRunning
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ServicesRunning.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ServicesRunning.DefaultCellStyle = dataGridViewCellStyle3;
             this.ServicesRunning.HeaderText = "Services Running";
             this.ServicesRunning.Name = "ServicesRunning";
             this.ServicesRunning.Width = 60;
@@ -236,8 +240,8 @@
             // 
             // Updates
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Updates.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Updates.DefaultCellStyle = dataGridViewCellStyle4;
             this.Updates.HeaderText = "Updates";
             this.Updates.Name = "Updates";
             this.Updates.Width = 55;
@@ -272,105 +276,113 @@
             this.installUpdatesToolStripMenuItem,
             this.toolStripSeparator8,
             this.rebootToolStripMenuItem1,
+            this.shutdownToolStripMenuItem1,
             this.toolStripSeparator7,
             this.removeItensToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(292, 292);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(295, 292);
             // 
             // startPingToolStripMenuItem
             // 
             this.startPingToolStripMenuItem.Name = "startPingToolStripMenuItem";
-            this.startPingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.startPingToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.startPingToolStripMenuItem.Text = "Start Ping";
             this.startPingToolStripMenuItem.Click += new System.EventHandler(this.StartPingToolStripMenuItem_Click);
             // 
             // stopPingToolStripMenuItem
             // 
             this.stopPingToolStripMenuItem.Name = "stopPingToolStripMenuItem";
-            this.stopPingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.stopPingToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.stopPingToolStripMenuItem.Text = "Stop Ping";
             this.stopPingToolStripMenuItem.Click += new System.EventHandler(this.RtopPingToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(288, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(291, 6);
             // 
             // getLastBootToolStripMenuItem
             // 
             this.getLastBootToolStripMenuItem.Name = "getLastBootToolStripMenuItem";
-            this.getLastBootToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.getLastBootToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.getLastBootToolStripMenuItem.Text = "Get Last Boot Date";
             this.getLastBootToolStripMenuItem.Click += new System.EventHandler(this.GetLastBootToolStripMenuItem_Click);
             // 
             // checkRebootToolStripMenuItem
             // 
             this.checkRebootToolStripMenuItem.Name = "checkRebootToolStripMenuItem";
-            this.checkRebootToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.checkRebootToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.checkRebootToolStripMenuItem.Text = "Check Pending Reboot";
             this.checkRebootToolStripMenuItem.Click += new System.EventHandler(this.CheckRebootToolStripMenuItem_Click);
             // 
             // countUpdatesToolStripMenuItem1
             // 
             this.countUpdatesToolStripMenuItem1.Name = "countUpdatesToolStripMenuItem1";
-            this.countUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(291, 22);
+            this.countUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.countUpdatesToolStripMenuItem1.Text = "Count Updates (Audit)";
             this.countUpdatesToolStripMenuItem1.Click += new System.EventHandler(this.CountUpdatesToolStripMenuItem1_Click);
             // 
             // reportUpdatesToWsusMenuItem
             // 
             this.reportUpdatesToWsusMenuItem.Name = "reportUpdatesToWsusMenuItem";
-            this.reportUpdatesToWsusMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.reportUpdatesToWsusMenuItem.Size = new System.Drawing.Size(294, 22);
             this.reportUpdatesToWsusMenuItem.Text = "Wsus - Report Updates Now";
             this.reportUpdatesToWsusMenuItem.Click += new System.EventHandler(this.ReportUpdatesToWsusMenuItem_Click);
             // 
             // resetAuthorizationOnWsus
             // 
             this.resetAuthorizationOnWsus.Name = "resetAuthorizationOnWsus";
-            this.resetAuthorizationOnWsus.Size = new System.Drawing.Size(291, 22);
-            this.resetAuthorizationOnWsus.Text = "Wsus - Reset Authorization && DetectNow";
+            this.resetAuthorizationOnWsus.Size = new System.Drawing.Size(294, 22);
+            this.resetAuthorizationOnWsus.Text = "Wsus - Reset Authorization && Detect Now";
             this.resetAuthorizationOnWsus.Click += new System.EventHandler(this.ResetAuthorizationOnWsusMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(288, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(291, 6);
             // 
             // installUpdatesBatchingToolStripMenuItem
             // 
             this.installUpdatesBatchingToolStripMenuItem.Name = "installUpdatesBatchingToolStripMenuItem";
-            this.installUpdatesBatchingToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.installUpdatesBatchingToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.installUpdatesBatchingToolStripMenuItem.Text = "Install Updates - Batch";
             this.installUpdatesBatchingToolStripMenuItem.Click += new System.EventHandler(this.InstallUpdatesBatchingToolStripMenuItem_Click);
             // 
             // installUpdatesToolStripMenuItem
             // 
             this.installUpdatesToolStripMenuItem.Name = "installUpdatesToolStripMenuItem";
-            this.installUpdatesToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.installUpdatesToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.installUpdatesToolStripMenuItem.Text = "Install Updates";
             this.installUpdatesToolStripMenuItem.Click += new System.EventHandler(this.InstallUpdatesContextToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(288, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(291, 6);
             // 
             // rebootToolStripMenuItem1
             // 
             this.rebootToolStripMenuItem1.Name = "rebootToolStripMenuItem1";
-            this.rebootToolStripMenuItem1.Size = new System.Drawing.Size(291, 22);
+            this.rebootToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.rebootToolStripMenuItem1.Text = "Reboot";
             this.rebootToolStripMenuItem1.Click += new System.EventHandler(this.RebootToolStripMenuItem1_Click);
+            // 
+            // shutdownToolStripMenuItem1
+            // 
+            this.shutdownToolStripMenuItem1.Name = "shutdownToolStripMenuItem1";
+            this.shutdownToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
+            this.shutdownToolStripMenuItem1.Text = "Shutdown";
+            this.shutdownToolStripMenuItem1.Click += new System.EventHandler(this.ShutdownToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(288, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(291, 6);
             // 
             // removeItensToolStripMenuItem
             // 
             this.removeItensToolStripMenuItem.Name = "removeItensToolStripMenuItem";
-            this.removeItensToolStripMenuItem.Size = new System.Drawing.Size(291, 22);
+            this.removeItensToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.removeItensToolStripMenuItem.Text = "Remove Itens";
             this.removeItensToolStripMenuItem.Click += new System.EventHandler(this.RemoveContextToolStripMenuItem_Click);
             // 
@@ -399,7 +411,7 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 
@@ -414,101 +426,111 @@
             this.countUpdatesToolStripMenuItem,
             this.toolStripSeparator10,
             this.installUpdatesToolStripMenuItem1,
+            this.wsusReportUpdatesNowToolStripMenuItem,
+            this.wsusResetAuthorizationDetectNowToolStripMenuItem,
             this.toolStripSeparator6,
             this.rebootToolStripMenuItem2,
+            this.shutdownToolStripMenuItem,
             this.toolStripSeparator5,
             this.removeItensToolStripMenuItem1});
             this.actionsToolStripMenuItem1.Name = "actionsToolStripMenuItem1";
-            this.actionsToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.actionsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.actionsToolStripMenuItem1.Text = "Actions";
             // 
             // startPingToolStripMenuItem1
             // 
             this.startPingToolStripMenuItem1.Name = "startPingToolStripMenuItem1";
-            this.startPingToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.startPingToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.startPingToolStripMenuItem1.Text = "Start Ping";
             this.startPingToolStripMenuItem1.Click += new System.EventHandler(this.StartPingToolStripMenuItem1_Click);
             // 
             // stopPingToolStripMenuItem1
             // 
             this.stopPingToolStripMenuItem1.Name = "stopPingToolStripMenuItem1";
-            this.stopPingToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.stopPingToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.stopPingToolStripMenuItem1.Text = "Stop Ping";
             this.stopPingToolStripMenuItem1.Click += new System.EventHandler(this.StopPingToolStripMenuItem1_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(192, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(291, 6);
             // 
             // getLastBootToolStripMenuItem1
             // 
             this.getLastBootToolStripMenuItem1.Name = "getLastBootToolStripMenuItem1";
-            this.getLastBootToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.getLastBootToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.getLastBootToolStripMenuItem1.Text = "Get Last Boot";
             this.getLastBootToolStripMenuItem1.Click += new System.EventHandler(this.GetLastBootToolStripMenuItem1_Click);
             // 
             // checkRebootToolStripMenuItem1
             // 
             this.checkRebootToolStripMenuItem1.Name = "checkRebootToolStripMenuItem1";
-            this.checkRebootToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.checkRebootToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.checkRebootToolStripMenuItem1.Text = "Check Pending Reboot";
             this.checkRebootToolStripMenuItem1.Click += new System.EventHandler(this.CheckRebootToolStripMenuItem1_Click);
             // 
             // countUpdatesToolStripMenuItem
             // 
             this.countUpdatesToolStripMenuItem.Name = "countUpdatesToolStripMenuItem";
-            this.countUpdatesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.countUpdatesToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
             this.countUpdatesToolStripMenuItem.Text = "Count Updates";
             this.countUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CountUpdatesToolStripMenuItem_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(192, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(291, 6);
             // 
             // installUpdatesToolStripMenuItem1
             // 
             this.installUpdatesToolStripMenuItem1.Name = "installUpdatesToolStripMenuItem1";
-            this.installUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.installUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.installUpdatesToolStripMenuItem1.Text = "Install Updates";
             this.installUpdatesToolStripMenuItem1.Click += new System.EventHandler(this.InstallUpdatesToolStripMenuItem1_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(192, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(291, 6);
             // 
             // rebootToolStripMenuItem2
             // 
             this.rebootToolStripMenuItem2.Name = "rebootToolStripMenuItem2";
-            this.rebootToolStripMenuItem2.Size = new System.Drawing.Size(195, 22);
+            this.rebootToolStripMenuItem2.Size = new System.Drawing.Size(294, 22);
             this.rebootToolStripMenuItem2.Text = "Reboot";
             this.rebootToolStripMenuItem2.Click += new System.EventHandler(this.RebootToolStripMenuItem2_Click);
+            // 
+            // shutdownToolStripMenuItem
+            // 
+            this.shutdownToolStripMenuItem.Name = "shutdownToolStripMenuItem";
+            this.shutdownToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.shutdownToolStripMenuItem.Text = "Shutdown";
+            this.shutdownToolStripMenuItem.Click += new System.EventHandler(this.ShutdownToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(192, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(291, 6);
             // 
             // removeItensToolStripMenuItem1
             // 
             this.removeItensToolStripMenuItem1.Name = "removeItensToolStripMenuItem1";
-            this.removeItensToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
+            this.removeItensToolStripMenuItem1.Size = new System.Drawing.Size(294, 22);
             this.removeItensToolStripMenuItem1.Text = "Remove Itens";
             this.removeItensToolStripMenuItem1.Click += new System.EventHandler(this.RemoveItensToolStripMenuItem_Click);
             // 
             // saveListToolStripMenuItem
             // 
             this.saveListToolStripMenuItem.Name = "saveListToolStripMenuItem";
-            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.saveListToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveListToolStripMenuItem.Text = "Save hosts list";
             this.saveListToolStripMenuItem.Click += new System.EventHandler(this.SaveListToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
             // 
@@ -703,6 +725,20 @@
             this.dataGridViewProgressColumn1.HeaderText = "Progress";
             this.dataGridViewProgressColumn1.Name = "dataGridViewProgressColumn1";
             // 
+            // wsusResetAuthorizationDetectNowToolStripMenuItem
+            // 
+            this.wsusResetAuthorizationDetectNowToolStripMenuItem.Name = "wsusResetAuthorizationDetectNowToolStripMenuItem";
+            this.wsusResetAuthorizationDetectNowToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.wsusResetAuthorizationDetectNowToolStripMenuItem.Text = "Wsus - Reset Authorization && Detect Now";
+            this.wsusResetAuthorizationDetectNowToolStripMenuItem.Click += new System.EventHandler(this.ResetAuthorizationOnWsusMenuItem_Click);
+            // 
+            // wsusReportUpdatesNowToolStripMenuItem
+            // 
+            this.wsusReportUpdatesNowToolStripMenuItem.Name = "wsusReportUpdatesNowToolStripMenuItem";
+            this.wsusReportUpdatesNowToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.wsusReportUpdatesNowToolStripMenuItem.Text = "Wsus - Report Updates Now";
+            this.wsusReportUpdatesNowToolStripMenuItem.Click += new System.EventHandler(this.ReportUpdatesToWsusMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -813,6 +849,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn OperationResults;
         private System.Windows.Forms.ToolStripMenuItem reportUpdatesToWsusMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetAuthorizationOnWsus;
+        private System.Windows.Forms.ToolStripMenuItem shutdownToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem shutdownToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wsusReportUpdatesNowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wsusResetAuthorizationDetectNowToolStripMenuItem;
     }
 }
 
